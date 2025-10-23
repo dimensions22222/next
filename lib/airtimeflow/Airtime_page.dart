@@ -1,5 +1,7 @@
 // lib/airtime_flow/airtime_page.dart
 
+// ignore_for_file: deprecated_member_use, file_names
+
 import 'package:flutter/material.dart';
 
 const Color _kAccentBlue = Color(0xFF0B63D6);
@@ -18,6 +20,28 @@ class _AirtimePageState extends State<AirtimePage> {
   final List<int> _amounts = [50, 100, 200, 500, 1000, 2000];
   int _selectedAmount = 1000;
 
+String _selectedNetwork = 'MTN';
+
+final List<Map<String, String>> _networks = [
+  {'name': 'MTN', 'icon': 'assets/images/mtn.png'},
+  {'name': 'Airtel', 'icon': 'assets/images/airtel.png'},
+  {'name': 'Glo', 'icon': 'assets/images/glo.jpeg'},
+  {'name': '9mobile', 'icon': 'assets/images/9Mobile.jpeg'},
+];
+
+String _getPayAmount(int amount) {
+  switch (amount) {
+    case 500:
+      return '200';
+    case 1000:
+      return '700';
+    case 2000:
+      return '1,700';
+    default:
+      return amount.toString();
+  }
+}
+
   @override
   void dispose() {
     _phoneController.dispose();
@@ -35,8 +59,7 @@ class _AirtimePageState extends State<AirtimePage> {
 
   @override
   Widget build(BuildContext context) {
-    final media = MediaQuery.of(context);
-    final isNarrow = media.size.width < 360;
+    MediaQuery.of(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -67,9 +90,10 @@ class _AirtimePageState extends State<AirtimePage> {
           ),
         ],
       ),
+      
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          
           padding: const EdgeInsets.only(bottom: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +118,7 @@ class _AirtimePageState extends State<AirtimePage> {
                             'assets/images/coin.png', // placeholder coin
                             width: 40,
                             height: 40,
+                            opacity: const AlwaysStoppedAnimation(0.9),
                             fit: BoxFit.contain,
                           ),
                           const SizedBox(width: 10),
@@ -135,137 +160,257 @@ class _AirtimePageState extends State<AirtimePage> {
 
               const SizedBox(height: 16),
 
-              // Top-up Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Phone input
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey.shade300),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow.shade700,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'M',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: TextField(
-                              controller: _phoneController,
-                              focusNode: _phoneFocus,
-                              keyboardType: TextInputType.phone,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: '08133228899',
-                                isDense: true,
-                              ),
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          const Icon(Icons.person_outline),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Amount selection grid
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: _amounts.map((a) {
-                        final selected = a == _selectedAmount;
-                        return GestureDetector(
-                          onTap: () => setState(() => _selectedAmount = a),
-                          child: Container(
-                            width: 95,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              color: selected ? _kAccentBlue : Colors.grey[100],
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey.shade300),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  '₦$a',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color:
-                                        selected ? Colors.white : Colors.black,
-                                    fontSize: isNarrow ? 13 : 15,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  '2% Cashback',
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color:
-                                        selected ? Colors.white70 : Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(height: 25),
-
-                    // Custom amount + Pay button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              // --- TOP-UP SECTION (FINAL POLISHED VERSION) ---
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // --- For Section ---
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'For',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+            children: [
+            // --- Network Dropdown ---
+            Flexible(
+          flex: 2,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: _selectedNetwork,
+                icon: const Icon(Icons.arrow_drop_down, color: Colors.black87),
+                isExpanded: true, // ✅ fixes overflow by letting it size safely
+                alignment: Alignment.centerLeft,
+                items: _networks.map((network) {
+                  return DropdownMenuItem<String>(
+                    value: network['name']!,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text('₦'),
-                        const SizedBox(width: 6),
-                        const Expanded(
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              hintText: '50 - 500,000',
-                              border: UnderlineInputBorder(),
-                              isDense: true,
-                            ),
+                        // ✅ Circular image with safe sizing
+                        ClipOval(
+                          child: Image.asset(
+                            network['icon']!,
+                            width: 28,
+                            height: 28,
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                        const SizedBox(width: 6),
-                        ElevatedButton(
-                          onPressed: _onContinue,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: _kAccentBlue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: const Text('Pay'),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 25),
-                  ],
-                ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() => _selectedNetwork = value!);
+                },
               ),
+            ),
+          ),
+        ),
+
+    const SizedBox(width: 10),
+
+    // --- Phone number input ---
+    Expanded(
+      flex: 5,
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _phoneController,
+                focusNode: _phoneFocus,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '08133228899',
+                  isDense: true,
+                ),
+                style: const TextStyle(fontSize: 15),
+              ),
+            ),
+            const Icon(Icons.account_circle_outlined, color: Colors.black54),
+          ],
+        ),
+      ),
+    ),
+  ],
+),
+
+          ],
+        ),
+      ),
+
+      const SizedBox(height: 20),
+
+      // --- Top Up Section ---
+      const Text(
+        'Top up',
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16,
+          color: Colors.black87,
+        ),
+      ),
+      const SizedBox(height: 8),
+
+      // --- Amount Grid with animation ---
+      LayoutBuilder(
+        builder: (context, constraints) {
+          final boxWidth = (constraints.maxWidth - 24) / 3;
+          return Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: _amounts.map((amount) {
+              final bool selected = amount == _selectedAmount;
+              return GestureDetector(
+                onTap: () {
+                  setState(() => _selectedAmount = amount);
+                },
+                child: AnimatedScale(
+                  scale: selected ? 1.05 : 1.0,
+                  duration: const Duration(milliseconds: 180),
+                  curve: Curves.easeOut,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeOut,
+                    width: boxWidth,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: selected
+                            ? _kAccentBlue
+                            : Colors.grey.shade300,
+                        width: selected ? 1.5 : 1,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: selected
+                              ? Colors.blue.withOpacity(0.1)
+                              : Colors.grey.shade200,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          '₦2% Cashback',
+                          style: TextStyle(
+                            color: Color(0xFF0B63D6),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '₦$amount',
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Pay ₦${_getPayAmount(amount)}',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          );
+        },
+      ),
+
+      const SizedBox(height: 20),
+
+      // --- Custom Amount + Pay Button ---
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '₦',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            child: TextField(
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                hintText: '50 - 500,000',
+                hintStyle: TextStyle(color: Colors.grey.shade500),
+                border: const UnderlineInputBorder(),
+                isDense: true,
+              ),
+            ),
+          ),
+          const SizedBox(width: 6),
+          ElevatedButton(
+            onPressed: _onContinue,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey.shade200,
+              elevation: 0,
+              foregroundColor: Colors.black54,
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            child: const Text(
+              'Pay',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+
 
               // Airtime Service and Promos
               Container(
