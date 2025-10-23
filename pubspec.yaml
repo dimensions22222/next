@@ -43,10 +43,12 @@ dependencies:
   flutter_screenutil: ^5.9.0
   cupertino_icons: ^1.0.2  # iOS-style icons
   shared_preferences: ^2.5.3
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

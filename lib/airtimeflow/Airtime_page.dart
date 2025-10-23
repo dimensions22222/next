@@ -1,9 +1,10 @@
 // lib/airtime_flow/airtime_page.dart
 
-// ignore_for_file: deprecated_member_use, file_names
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously, file_names
 
 import 'package:flutter/material.dart';
-
+import 'package:next/airtimeflow/airtime_success_page.dart';
+import 'package:next/main%20pages/dashboard_page.dart';
 const Color _kAccentBlue = Color(0xFF0B63D6);
 
 class AirtimePage extends StatefulWidget {
@@ -19,8 +20,22 @@ class _AirtimePageState extends State<AirtimePage> {
   final FocusNode _phoneFocus = FocusNode();
   final List<int> _amounts = [50, 100, 200, 500, 1000, 2000];
   int _selectedAmount = 1000;
+  final TextEditingController _amountController = TextEditingController();
+
 
 String _selectedNetwork = 'MTN';
+bool _isFormValid = false;
+
+void _validateForm() {
+  final isPhoneValid = _phoneController.text.trim().length >= 10;
+  final isAmountValid = _selectedAmount > 0;
+  final isNetworkSelected = _selectedNetwork.isNotEmpty;
+
+  setState(() {
+    _isFormValid = isPhoneValid && isAmountValid && isNetworkSelected;
+  });
+}
+
 
 final List<Map<String, String>> _networks = [
   {'name': 'MTN', 'icon': 'assets/images/mtn.png'},
@@ -28,6 +43,120 @@ final List<Map<String, String>> _networks = [
   {'name': 'Glo', 'icon': 'assets/images/glo.jpeg'},
   {'name': '9mobile', 'icon': 'assets/images/9Mobile.jpeg'},
 ];
+
+
+
+void _showAirtimeConfirmation(BuildContext context, double amount, String phoneNumber) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 15),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                "₦ ${amount.toStringAsFixed(2)}",
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            _buildConfirmationRow("Product name", "Airtime"),
+            _buildConfirmationRow("Recipient Mobile", phoneNumber),
+            _buildConfirmationRow("Amount", "₦${amount.toStringAsFixed(2)}"),
+            const SizedBox(height: 5),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Bonus to Earn"),
+                Text("+2% Cashback", style: TextStyle(color: Colors.green)),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const Text("Payment Method", style: TextStyle(fontWeight: FontWeight.w600)),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Available Balance (₦56,000.00)",
+                      style: TextStyle(fontSize: 14, color: Colors.black87)),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Wallet", style: TextStyle(fontSize: 14, color: Colors.black54)),
+                      Text("-₦${amount.toStringAsFixed(2)}",
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () async {
+                Navigator.pop(context); // close confirmation
+                await _showEnterPinPopup(context); // show PIN popup
+              },
+
+                child: const Text("Confirm", style: TextStyle(fontSize: 16, color: Colors.white)),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+Widget _buildConfirmationRow(String title, String value) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title, style: const TextStyle(color: Colors.black54)),
+        Text(value, style: const TextStyle(fontWeight: FontWeight.w500)),
+      ],
+    ),
+  );
+}
+
 
 String _getPayAmount(int amount) {
   switch (amount) {
@@ -43,20 +172,14 @@ String _getPayAmount(int amount) {
 }
 
   @override
-  void dispose() {
-    _phoneController.dispose();
-    _phoneFocus.dispose();
-    super.dispose();
-  }
+void dispose() {
+  _phoneController.dispose();
+  _phoneFocus.dispose();
+  _amountController.dispose(); 
+  super.dispose();
+}
 
-  void _onContinue() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Continue: ${_phoneController.text} — ₦$_selectedAmount'),
-      ),
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     MediaQuery.of(context);
@@ -68,7 +191,13 @@ String _getPayAmount(int amount) {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () =>  
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DashboardPage(),
+          ),
+        ),
         ),
         title: const Text(
           'Airtime',
@@ -160,7 +289,7 @@ String _getPayAmount(int amount) {
 
               const SizedBox(height: 16),
 
-              // --- TOP-UP SECTION (FINAL POLISHED VERSION) ---
+              // --- TOP-UP SECTION
 Padding(
   padding: const EdgeInsets.symmetric(horizontal: 18.0),
   child: Column(
@@ -186,78 +315,84 @@ Padding(
             ),
             const SizedBox(height: 8),
             Row(
-            children: [
-            // --- Network Dropdown ---
-            Flexible(
-          flex: 2,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: _selectedNetwork,
-                icon: const Icon(Icons.arrow_drop_down, color: Colors.black87),
-                isExpanded: true, // ✅ fixes overflow by letting it size safely
-                alignment: Alignment.centerLeft,
-                items: _networks.map((network) {
-                  return DropdownMenuItem<String>(
-                    value: network['name']!,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // ✅ Circular image with safe sizing
-                        ClipOval(
-                          child: Image.asset(
-                            network['icon']!,
-                            width: 28,
-                            height: 28,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() => _selectedNetwork = value!);
-                },
-              ),
-            ),
-          ),
-        ),
-
-    const SizedBox(width: 10),
-
-    // --- Phone number input ---
+  children: [
+    // --- Unified container for dropdown + textfield ---
     Expanded(
-      flex: 5,
       child: Container(
-        height: 40,
+        height: 48,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey.shade300),
           borderRadius: BorderRadius.circular(6),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            Expanded(
-              child: TextField(
-                controller: _phoneController,
-                focusNode: _phoneFocus,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: '08133228899',
-                  isDense: true,
+            // --- Network dropdown ---
+            SizedBox(
+              width: 70, // fixed width for logo area
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: _selectedNetwork,
+                  icon: const Icon(Icons.arrow_drop_down, color: Colors.black87, size: 20),
+                  isExpanded: true,
+                  alignment: Alignment.center,
+                  items: _networks.map((network) {
+                    return DropdownMenuItem<String>(
+                      value: network['name']!,
+                      child: Center(
+                        child: ClipOval(
+                          child: Image.asset(
+                            network['icon']!,
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                  setState(() => _selectedNetwork = value!);
+                  _validateForm();
+                },
+
                 ),
-                style: const TextStyle(fontSize: 15),
               ),
             ),
-            const Icon(Icons.account_circle_outlined, color: Colors.black54),
+
+            // --- Vertical divider ---
+            Container(
+              width: 1,
+              height: 28,
+              color: Colors.grey.shade300,
+            ),
+
+            // --- Phone input ---
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child:TextField(
+                      controller: _phoneController,
+                      focusNode: _phoneFocus,
+                      keyboardType: TextInputType.phone,
+                      onChanged: (_) => _validateForm(), // 👈 auto recheck on change
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '08133228890',
+                        isDense: true,
+                      ),
+                      style: const TextStyle(fontSize: 15),
+                    ),
+
+                    ),
+                    const Icon(Icons.account_circle_outlined, color: Colors.black54),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -291,10 +426,17 @@ Padding(
             runSpacing: 12,
             children: _amounts.map((amount) {
               final bool selected = amount == _selectedAmount;
+              
               return GestureDetector(
                 onTap: () {
-                  setState(() => _selectedAmount = amount);
-                },
+                setState(() {
+                  _selectedAmount = amount;
+                  _amountController.text = amount.toString();
+                });
+                _validateForm();
+              },
+
+
                 child: AnimatedScale(
                   scale: selected ? 1.05 : 1.0,
                   duration: const Duration(milliseconds: 180),
@@ -373,38 +515,58 @@ Padding(
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(width: 6),
-          Expanded(
-            child: TextField(
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: '50 - 500,000',
-                hintStyle: TextStyle(color: Colors.grey.shade500),
-                border: const UnderlineInputBorder(),
-                isDense: true,
-              ),
-            ),
-          ),
-          const SizedBox(width: 6),
-          ElevatedButton(
-            onPressed: _onContinue,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.grey.shade200,
-              elevation: 0,
-              foregroundColor: Colors.black54,
-              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            child: const Text(
-              'Pay',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-              ),
-            ),
-          ),
+         Expanded(
+  child: TextField(
+    controller: _amountController,
+    textAlign: TextAlign.center,
+    keyboardType: TextInputType.number,
+    onChanged: (value) {
+      final parsed = int.tryParse(value) ?? 0;
+      setState(() {
+        _selectedAmount = parsed;
+      });
+      _validateForm();
+    },
+    decoration: InputDecoration(
+      hintText: '50 - 500,000',
+      hintStyle: TextStyle(color: Colors.grey.shade500),
+      border: const UnderlineInputBorder(),
+      isDense: true,
+    ),
+  ),
+),
+const SizedBox(width: 6),
+ElevatedButton(
+  onPressed: _isFormValid
+      ? () {
+          _showAirtimeConfirmation(
+            context,
+            _selectedAmount.toDouble(),
+            _phoneController.text,
+          );
+        }
+      : null,
+  style: ElevatedButton.styleFrom(
+    backgroundColor:
+        _isFormValid ? _kAccentBlue : Colors.grey.shade300,
+    elevation: 0,
+    foregroundColor:
+        _isFormValid ? Colors.white : Colors.black45,
+    padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(6),
+    ),
+  ),
+  child: const Text(
+    'Pay',
+    style: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+    ),
+  ),
+),
+
+
         ],
       ),
     ],
@@ -550,4 +712,168 @@ Padding(
       ),
     );
   }
+}
+
+
+
+Future<void> _showEnterPinPopup(BuildContext context) async {
+  final List<String> pin = ['', '', '', ''];
+  bool showError = false;
+  bool useFaceId = false;
+
+
+  await showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+    ),
+    builder: (context) {
+      return StatefulBuilder(
+        builder: (context, setModalState) {
+          void onKeyPressed(String value) {
+            setModalState(() {
+              final index = pin.indexOf('');
+              if (index != -1) pin[index] = value;
+
+              if (!pin.contains('')) {
+                Future.delayed(const Duration(milliseconds: 250), () {
+                  if (pin.join() == '1111') {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AirtimeSuccessPage()),
+);
+
+                  } else {
+                    setModalState(() {
+                      showError = true;
+                      pin.fillRange(0, 4, '');
+                    });
+                  }
+                });
+              }
+            });
+          }
+
+          void onDelete() {
+            setModalState(() {
+              for (int i = 3; i >= 0; i--) {
+                if (pin[i].isNotEmpty) {
+                  pin[i] = '';
+                  break;
+                }
+              }
+            });
+          }
+
+          Widget buildPinBox(int i) {
+            final filled = pin[i].isNotEmpty;
+            return Container(
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: showError
+                      ? Colors.red
+                      : (filled ? Colors.blue : Colors.grey.shade300),
+                  width: 1.5,
+                ),
+              ),
+              child: filled
+                  ? const Icon(Icons.circle, size: 12, color: Colors.black87)
+                  : const SizedBox(),
+            );
+          }
+
+          Widget buildKey(String label, {IconData? icon}) {
+            return InkWell(
+              borderRadius: BorderRadius.circular(40),
+              onTap: () =>
+                  icon == Icons.backspace_outlined ? onDelete() : onKeyPressed(label),
+              child: Center(
+                child: icon == null
+                    ? Text(label,
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w600))
+                    : Icon(icon, size: 24, color: Colors.black54),
+              ),
+            );
+          }
+
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 22,
+              right: 22,
+              top: 18,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 5,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Enter Payment PIN',
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 6),
+                const Text('Confirm your transaction',
+                    style: TextStyle(fontSize: 13, color: Colors.grey)),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(4, buildPinBox),
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Forgot Payment PIN?',
+                    style: TextStyle(color: Colors.blue, fontSize: 13),
+                  ),
+                ),
+                const SizedBox(height: 22),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Use Face ID next time',
+                        style: TextStyle(fontSize: 13)),
+                    Switch(
+                      value: useFaceId,
+                      onChanged: (v) => setModalState(() => useFaceId = v),
+                      activeColor: Colors.blue,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  childAspectRatio: 1.4,
+                  children: [
+                    ...List.generate(9, (i) => buildKey('${i + 1}')),
+                    const SizedBox(),
+                    buildKey('0'),
+                    buildKey('', icon: Icons.backspace_outlined),
+                  ],
+                ),
+                const SizedBox(height: 18),
+              ],
+            ),
+          );
+        },
+      );
+    },
+  );
 }
