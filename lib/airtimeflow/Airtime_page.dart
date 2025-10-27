@@ -126,7 +126,7 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               height: 48,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color(0xFF0D47A1),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
                 onPressed: () async {
@@ -458,7 +458,7 @@ Padding(
                       boxShadow: [
                         BoxShadow(
                           color: selected
-                              ? Colors.blue.withOpacity(0.1)
+                              ? const Color(0xFF0D47A1).withOpacity(0.1)
                               : Colors.grey.shade200,
                           blurRadius: 6,
                           offset: const Offset(0, 3),
@@ -597,7 +597,7 @@ ElevatedButton(
                       ),
                       child: const Row(
                         children: [
-                          Icon(Icons.phone_android, color: Colors.blue),
+                          Icon(Icons.phone_android, color: Color(0xFF0D47A1)),
                           SizedBox(width: 10),
                           Expanded(
                             child: Column(
@@ -778,7 +778,7 @@ Future<void> _showEnterPinPopup(BuildContext context) async {
                 border: Border.all(
                   color: showError
                       ? Colors.red
-                      : (filled ? Colors.blue : Colors.grey.shade300),
+                      : (filled ? const Color(0xFF0D47A1) : Colors.grey.shade300),
                   width: 1.5,
                 ),
               ),
@@ -839,7 +839,7 @@ Future<void> _showEnterPinPopup(BuildContext context) async {
                   onTap: () {},
                   child: const Text(
                     'Forgot Payment PIN?',
-                    style: TextStyle(color: Colors.blue, fontSize: 13),
+                    style: TextStyle(color: Color(0xFF0D47A1), fontSize: 13),
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -851,7 +851,7 @@ Future<void> _showEnterPinPopup(BuildContext context) async {
                     Switch(
                       value: useFaceId,
                       onChanged: (v) => setModalState(() => useFaceId = v),
-                      activeColor: Colors.blue,
+                      activeColor: const Color(0xFF0D47A1),
                     ),
                   ],
                 ),

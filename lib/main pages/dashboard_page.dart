@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:next/TV%20sub%20flow/tvsub_page.dart';
 import 'package:next/airtimeflow/Airtime_page.dart';
 import 'package:next/bottomNAVpages/profile_me.dart';
 import 'package:next/bottomNAVpages/reward_page.dart';
@@ -778,8 +779,10 @@ class _QuickAction extends StatelessWidget {
           );
           break;
         case "TV":
-          // Navigator
-          
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TvSubPage()),
+          );
           break;
         case "Data":
           // Navigator
