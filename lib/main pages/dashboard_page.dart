@@ -12,6 +12,8 @@ import 'package:image_picker/image_picker.dart';
 
 import 'dart:io';
 
+import 'package:next/dataflow/Data_page.dart';
+
 
 
 
@@ -785,7 +787,10 @@ class _QuickAction extends StatelessWidget {
           );
           break;
         case "Data":
-          // Navigator
+         Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DataSubPage()),
+          );
           break;
         case "Electricity":
           // Navigator

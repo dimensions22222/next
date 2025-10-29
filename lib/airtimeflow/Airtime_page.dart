@@ -207,7 +207,7 @@ void dispose() {
         actions: [
           TextButton(
             onPressed: () {
-              // Navigate to history page
+              // Navigate to history 
             },
             child: const Text(
               'History',
@@ -222,70 +222,109 @@ void dispose() {
       
       body: SafeArea(
         child: SingleChildScrollView(
-          
-          padding: const EdgeInsets.only(bottom: 24),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Cashback Banner
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 100, 157, 248),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.centerRight,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/coin.png', // placeholder coin
-                            width: 40,
-                            height: 40,
-                            opacity: const AlwaysStoppedAnimation(0.9),
-                            fit: BoxFit.contain,
-                          ),
-                          const SizedBox(width: 10),
-                          const Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Get up to ₦100 Cashback',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  'Top up ₦1,000 for betting and get up to ₦100 cash back',
-                                  style: TextStyle(fontSize: 13),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Positioned(
-                        right: -10,
-                        child: Image.asset(
-                          'assets/images/players.png', // placeholder footballers
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
+             Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color.fromARGB(255, 78, 142, 246), Color.fromARGB(255, 124, 168, 251)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // coin image
+              Positioned(
+                left: 10,
+                top: 10,
+                child: Opacity(
+                  opacity: 0.25,
+                  child: Image.asset(
+                    'assets/images/coin.png',
+                    width: 35,
+                    height: 35,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
+
+              // Players image 
+              Positioned(
+                right: 0,
+                bottom: 20,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(18),
+                  ),
+                  child: Image.asset(
+                    'assets/images/players.png',
+                    width: 130,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+
+              // Text + Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Get up to ₦100 Cashback',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Top up ₦1,000 for betting and get up                                             to ₦100 cash back',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Color.fromARGB(255, 50, 67, 76),
+                        height: 1.3,
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 100,
+                      height: 20,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0D47A1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: const Text(
+                          'Top up now',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
 
               const SizedBox(height: 16),
 
@@ -316,7 +355,7 @@ Padding(
             const SizedBox(height: 8),
             Row(
   children: [
-    // --- Unified container for dropdown + textfield ---
+    // container for dropdown + textfield ---
     Expanded(
       child: Container(
         height: 48,
@@ -373,22 +412,33 @@ Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    Expanded(
-                      child:TextField(
-                      controller: _phoneController,
-                      focusNode: _phoneFocus,
-                      keyboardType: TextInputType.phone,
-                      onChanged: (_) => _validateForm(), // 👈 auto recheck on change
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '08133228890',
-                        isDense: true,
-                      ),
-                      style: const TextStyle(fontSize: 15),
+                  Expanded(
+                    child: TextField(
+                    controller: _phoneController,
+                    focusNode: _phoneFocus,
+                    keyboardType: TextInputType.phone,
+                    onChanged: (_) => _validateForm(), //auto recheck on change
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: '08133228890',
+                      isDense: true,
                     ),
-
+                    style: const TextStyle(fontSize: 15),
                     ),
-                    const Icon(Icons.account_circle_outlined, color: Colors.black54),
+                  ),
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: const BoxDecoration(
+                    color: Color(0xFF0D47A1),
+                    shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                    Icons.account_circle_outlined,
+                    size: 24,
+                    color: Colors.white,
+                    ),
+                  ),
                   ],
                 ),
               ),

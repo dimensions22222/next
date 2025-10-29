@@ -1,20 +1,31 @@
-// lib/airtime_flow/airtime_success_page.dart
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
 
-class AirtimeSuccessPage extends StatefulWidget {
-  const AirtimeSuccessPage({Key? key}) : super(key: key);
+
+
+class DataSuccesspage extends StatefulWidget {
+  final String amount;
+  final String phoneNumber;
+  final String provider;
+
+  const DataSuccesspage({
+    Key? key,
+    required this.amount,
+    required this.phoneNumber,
+    required this.provider,
+  }) : super(key: key);
+
 
   @override
-  State<AirtimeSuccessPage> createState() => _AirtimeSuccessPageState();
+  State<DataSuccesspage> createState() => _DataSuccesspageState();
 }
 
-class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
+class _DataSuccesspageState extends State<DataSuccesspage> {
   late final ConfettiController _confettiController;
 
   // Fixed accents to always match the Figma regardless of app theme
-  static const Color _accentBlue = Color(0xFF0B63D6);
+  static const Color _accentBlue = Color(0xFF0D47A1);
   static const Color _rewardGold = Color(0xFFFFC107);
   static const Color _successGreen = Color(0xFF4CAF50);
   static const Color _darkText = Color(0xFF222222);
@@ -57,7 +68,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
             onPressed: () =>  Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const DashboardPage(),
+                            builder: (context) => const  DashboardPage(),
                           ),
                         ),
 
@@ -142,7 +153,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
 
                     // Title
                     Text(
-                      'Airtime Purchase Successful',
+                      'Data Purchase Successful',
                       style: headerFont,
                       textAlign: TextAlign.center,
                     ),
@@ -150,23 +161,25 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                     SizedBox(height: 10.0 * scale),
 
                     // Subtext
-                    Text(
-                      'You have successfully recharged ₦4,000 for 08122388400 - AIRTEL-NIGERIA',
+                      Text(
+                      'You have successfully recharged ₦${widget.amount} for ${widget.phoneNumber} - ${widget.provider.toUpperCase()}-NIGERIA',
                       style: bodyFont,
                       textAlign: TextAlign.center,
                     ),
 
-                    SizedBox(height: 20.0 * scale),
 
-                    // Cashback/reward banner
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all((12.0 * scale).clamp(8.0, 18.0)),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFF9E5),
-                        borderRadius: BorderRadius.circular((10.0 * scale).clamp(6.0, 14.0)),
-                      ),
-                      child: Row(
+                        SizedBox(height: 15.0 * scale),
+
+                        // Cashback/reward banner
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all((12.0 * scale).clamp(8.0, 18.0)),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFF9E5),
+                            borderRadius: BorderRadius.circular((10.0 * scale).clamp(6.0, 14.0)),
+                          ),
+
+                        child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(Icons.emoji_events_rounded, color: _successGreen, size: (26.0 * scale).clamp(18.0, 30.0)),
@@ -227,7 +240,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                       ),
                     ),
 
-                    SizedBox(height: 10.0 * scale),
+                    SizedBox(height: 12.0 * scale),
                     const Divider(height: 1),
 
                     // Reward rows with dividers (no borders)
@@ -261,9 +274,8 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                     ),
                     const Divider(height: 1),
 
-                    SizedBox(height: 20.0 * scale),
+                    SizedBox(height: 22.0 * scale),
 
-                    
                     // Buttons row
                     Row(
                       children: [
@@ -325,7 +337,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                       ],
                     ),
 
-                    SizedBox(height: 20.0 * scale),
+                    SizedBox(height: 28.0 * scale),
                   ],
                 ),
               ),

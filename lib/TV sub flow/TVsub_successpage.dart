@@ -1,20 +1,31 @@
 // lib/airtime_flow/airtime_success_page.dart
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
 
-class AirtimeSuccessPage extends StatefulWidget {
-  const AirtimeSuccessPage({Key? key}) : super(key: key);
+
+class TvsubSuccesspage extends StatefulWidget {
+  const TvsubSuccesspage({
+    Key? key,
+    required this.plan,
+    required this.provider,
+    required this.amount,
+  }) : super(key: key);
+   final String plan;
+  final String provider;
+  final String amount;
 
   @override
-  State<AirtimeSuccessPage> createState() => _AirtimeSuccessPageState();
+  State<TvsubSuccesspage> createState() => _TvsubSuccesspageState();
 }
 
-class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
+class _TvsubSuccesspageState extends State<TvsubSuccesspage> {
   late final ConfettiController _confettiController;
 
   // Fixed accents to always match the Figma regardless of app theme
-  static const Color _accentBlue = Color(0xFF0B63D6);
+  static const Color _accentBlue = Color(0xFF0D47A1);
   static const Color _rewardGold = Color(0xFFFFC107);
   static const Color _successGreen = Color(0xFF4CAF50);
   static const Color _darkText = Color(0xFF222222);
@@ -142,7 +153,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
 
                     // Title
                     Text(
-                      'Airtime Purchase Successful',
+                      'DStv Subscription Successful',
                       style: headerFont,
                       textAlign: TextAlign.center,
                     ),
@@ -150,23 +161,106 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                     SizedBox(height: 10.0 * scale),
 
                     // Subtext
-                    Text(
-                      'You have successfully recharged ₦4,000 for 08122388400 - AIRTEL-NIGERIA',
-                      style: bodyFont,
-                      textAlign: TextAlign.center,
-                    ),
-
-                    SizedBox(height: 20.0 * scale),
-
-                    // Cashback/reward banner
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all((12.0 * scale).clamp(8.0, 18.0)),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFF9E5),
-                        borderRadius: BorderRadius.circular((10.0 * scale).clamp(6.0, 14.0)),
+                      Text(
+                        'You have successfully recharged ₦19,000 for 08122388400 - DSTV-NIGERIA',
+                        style: bodyFont,
+                        textAlign: TextAlign.center,
                       ),
-                      child: Row(
+
+                      SizedBox(height: 20.0 * scale),
+
+                      // 🔹 Transaction ID section (with styled Copy + Share)
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all((12.0 * scale).clamp(8.0, 16.0)),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF6F8FB),
+                          borderRadius: BorderRadius.circular((12.0 * scale).clamp(8.0, 14.0)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'ID: 3300998811',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: (14.0 * scale).clamp(12.0, 16.0),
+                                color: _darkText,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                // Copy icon inside circle
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 3,
+                                        offset: Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.copy_rounded, color: Colors.black87),
+                                    iconSize: (18.0 * scale).clamp(14.0, 20.0),
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('ID copied to clipboard')),
+                                      );
+                                    },
+                                  ),
+                                ),
+
+                                SizedBox(width: 8.0 * scale),
+
+                                // Share button 
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Add share functionality here later
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: (18.0 * scale).clamp(12.0, 22.0),
+                                      vertical: (10.0 * scale).clamp(8.0, 12.0),
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    elevation: 0,
+                                  ),
+                                  child: Text(
+                                    'Share',
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: (14.0 * scale).clamp(12.0, 16.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+
+
+                        SizedBox(height: 15.0 * scale),
+
+                        // Cashback/reward banner (existing)
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all((12.0 * scale).clamp(8.0, 18.0)),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFF9E5),
+                            borderRadius: BorderRadius.circular((10.0 * scale).clamp(6.0, 14.0)),
+                          ),
+
+                        child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(Icons.emoji_events_rounded, color: _successGreen, size: (26.0 * scale).clamp(18.0, 30.0)),
@@ -227,7 +321,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                       ),
                     ),
 
-                    SizedBox(height: 10.0 * scale),
+                    SizedBox(height: 12.0 * scale),
                     const Divider(height: 1),
 
                     // Reward rows with dividers (no borders)
@@ -261,7 +355,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                     ),
                     const Divider(height: 1),
 
-                    SizedBox(height: 20.0 * scale),
+                    SizedBox(height: 22.0 * scale),
 
                     
                     // Buttons row
@@ -325,7 +419,7 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                       ],
                     ),
 
-                    SizedBox(height: 20.0 * scale),
+                    SizedBox(height: 28.0 * scale),
                   ],
                 ),
               ),

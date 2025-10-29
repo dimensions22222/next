@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:next/TV%20sub%20flow/TVsub_successpage.dart';
+import 'package:next/main%20pages/dashboard_page.dart';
 
 class TvSubPage extends StatefulWidget {
   const TvSubPage({Key? key}) : super(key: key);
@@ -24,6 +26,24 @@ class _TvSubPageState extends State<TvSubPage>
   // NEW DSTV REVIEW FLOW
   double walletBalance = 56000; // mock wallet balance ₦56,000
 
+
+
+ 
+  
+  void _showSuccessDialog(String planName) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => TvsubSuccesspage(
+        plan: planName,
+        provider: selectedProvider, // now always a String
+        amount: selectedPlan ?? 'N/A',
+      ),
+    ),
+  );
+}
+
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +62,10 @@ class _TvSubPageState extends State<TvSubPage>
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new,
               color: Colors.black, size: 18),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DashboardPage()),
+),
         ),
         title: const Text(
           'TV Subscription',
@@ -413,13 +436,24 @@ Widget _buildProviderOption(
                   color: Colors.black,
                 ),
               ),
-              Text(
-                'Beneficiaries',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Color(0xFF0D47A1),
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Beneficiaries',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(width: 1),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
+                    color: Colors.black54,
+                  ),
+                ],
               ),
             ],
           ),
@@ -453,8 +487,8 @@ Widget _buildProviderOption(
             Future.delayed(const Duration(seconds: 2), () {
               if (!mounted) return;
 
-              final isValid = RegExp(r'^/d{10,12}$')
-                  .hasMatch(value.replaceAll(RegExp(r'[^0-9]'), ''));
+              final cleanedValue = value.replaceAll(RegExp(r'\D'), ''); // keep only digits
+              final isValid = RegExp(r'^\d{10,12}$').hasMatch(cleanedValue);
 
               setState(() {
                 isVerifying = false;
@@ -463,7 +497,7 @@ Widget _buildProviderOption(
                   errorMessage = null;
                 } else {
                   isVerified = false;
-                  errorMessage = "Please enter the correct phone number";
+                  errorMessage = "Please enter the correct smart card number";
                 }
               });
             });
@@ -652,54 +686,236 @@ Widget _buildProviderOption(
                   ],
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.yellow.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text(
-                        '1 month',
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.orange,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      plan['name']!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      plan['price']!,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Text(
+      plan['name']!,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
+    ),
+    const SizedBox(height: 6),
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.yellow.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: const Text(
+        '1 month',
+        style: TextStyle(
+          fontSize: 11.5,
+          fontWeight: FontWeight.w600,
+          color: Colors.orange,
+        ),
+      ),
+    ),
+    const SizedBox(height: 6),
+    Text(
+      plan['price']!,
+      style: const TextStyle(
+        fontSize: 14,
+        color: Colors.black87,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  ],
+),
+
               ),
             );
           },
         ),
+        const SizedBox(height: 15),
+_cashbackBannerSection(),
+
       ],
     );
 
     
   }
+  Widget _cashbackBannerSection() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Column(
+      children: [
+        // ---------------- Blue Cashback Banner ----------------
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color.fromARGB(255, 78, 142, 246), Color.fromARGB(255, 124, 168, 251)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Faint coin image (transparent background)
+              Positioned(
+                left: 10,
+                top: 10,
+                child: Opacity(
+                  opacity: 0.25,
+                  child: Image.asset(
+                    'assets/images/coin.png',
+                    width: 45,
+                    height: 45,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+
+              // Players image on the right bottom
+              Positioned(
+                right: 0,
+                bottom: 30,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(18),
+                  ),
+                  child: Image.asset(
+                    'assets/images/players.png',
+                    width: 130,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+
+              // Text + Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Get up to ₦100 Cashback',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Top up ₦1,000 for betting and get up                                       to ₦100 cash back',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Color.fromARGB(255, 3, 31, 72),
+                        height: 1.3,
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 100,
+                      height: 20,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0D47A1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: const Text(
+                          'Top up now',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 14),
+
+        // ---------------- Bet9ja Promo Section ----------------
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal:1, vertical: 1),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+            color: Colors.white30,
+            width: 1, //  border thickness
+    ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              const SizedBox(width: 14),
+
+              // Circular promo image
+              Container(
+                width: 45,
+                height: 45,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/promo1.png'),
+                    fit: BoxFit.cover,
+                  ),
+                  border: Border.all(color: Colors.black12, width: 1),
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              // Text
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Sweet deal!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Top up your account and get 100% bonus back',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Colors.black87,
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 
   // NEW DSTV REVIEW FLOW
   // ==================== REPLACE ONLY THIS FUNCTION ====================
@@ -911,7 +1127,7 @@ void _showReviewDialog(String planName, String price) {
                 children: [
                   _reviewRow("Product name", "DSTV TV"),
                   _reviewRow("Account Number", "2081223344"),
-                  _reviewRow("Account Name", "EMMANUEL LAWAL"),
+                  _reviewRow("Account Name", "TAIWO AYOOMODARA"),
                   _reviewRow("Amount", amount.toStringAsFixed(2)),
                   const SizedBox(height: 4),
                   const Row(
@@ -1087,25 +1303,7 @@ Widget _reviewRow(String label, String value) {
 
 
   // NEW DSTV REVIEW FLOW — success
-  void _showSuccessDialog(String planName) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Payment Successful 🎉'),
-        content: Text(
-          'Your DSTV $planName subscription was renewed successfully!',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
-  }
+  
 
   // NEW DSTV REVIEW FLOW — insufficient funds
   void _showInsufficientDialog() {
