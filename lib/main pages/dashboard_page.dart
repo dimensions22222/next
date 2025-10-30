@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:next/dataflow/Data_page.dart';
+import 'package:next/eletricityflow/Electricitypage.dart';
 
 
 
@@ -793,7 +794,10 @@ class _QuickAction extends StatelessWidget {
           );
           break;
         case "Electricity":
-          // Navigator
+           Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ElectricityPage()),
+          );
           break;
       }
     }
