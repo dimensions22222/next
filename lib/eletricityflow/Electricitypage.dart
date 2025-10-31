@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:next/eletricityflow/Electricitysuccesspage.dart';
 import 'package:next/main%20pages/dashboard_page.dart'; // adjust if your path differs
 
 class ElectricityPage extends StatefulWidget {
@@ -1096,13 +1097,23 @@ Widget _enterAmountField() {
               if (entered == '1234') {
                 if (walletBalance >= amount) {
                   setState(() => walletBalance -= amount);
-                  Navigator.pop(context);
-                  _showSuccess(amount);
+                  Navigator.pop(context); // Close the bottom sheet
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ElectricitySuccesspage(
+                        plan: '',
+                        provider: '',
+                        amount: '',
+                      ),
+                    ),
+                  );
                 } else {
                   Navigator.pop(context);
                   _showInsufficient();
                 }
-              } else {
+              }
+              else {
                 entered = '';
                 setState(() {});
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -1284,37 +1295,10 @@ Widget _enterAmountField() {
 
 
   void _showForgotPin() {
-    showDialog(context: context, builder: (_) => AlertDialog(title: const Text('Forgot PIN'), content: const Text('PIN reset flow is not implemented in this demo.'), actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))]));
+    showDialog(context: context, builder: (_) => AlertDialog(
+      title: const Text('Forgot PIN'), content: const Text('PIN reset flow is not implemented in this demo.'), actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))]));
   }
 
-  void _showSuccess(int amount) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        content: Column(mainAxisSize: MainAxisSize.min, children: [
-          const Icon(Icons.check_circle, size: 56, color: Colors.green),
-          const SizedBox(height: 8),
-          const Text('Payment Successful', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 6),
-          Text('₦${amount.toStringAsFixed(2)} paid to $selectedProvider'),
-          const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            height: 44,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                // navigate back to dashboard or any success page
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const DashboardPage()));
-              },
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0D47A1), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
-              child: const Text('Done'),
-            ),
-          )
-        ]),
-      ),
-    );
+  
+    
   }
-}
