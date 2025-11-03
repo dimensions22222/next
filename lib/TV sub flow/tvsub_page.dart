@@ -176,7 +176,7 @@ Container(
     case "Showmax":
       return "assets/images/showmax.png";
     default:
-      return "assets/images/DStv.jpg"; // fallback DSTV logo
+      return "assets/images/DStv.jpg"; //  DSTV logo
   }
 }
 
@@ -632,20 +632,44 @@ Widget _buildProviderOption(
           margin: const EdgeInsets.only(top: 20, bottom: 10),
           alignment: Alignment.centerLeft,
           child: Container(
+            width: 400,
+            height: 90,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
             ),
             padding:
                 const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-            child: const Text(
-              'DSTV Renewal\nEnter Amount',
-              style: TextStyle(
-                fontSize: 14.5,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-                height: 1.3,
-              ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'DSTV Renewal',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    height: 1.3,
+                  ),
+                ),
+                SizedBox(height: 19),
+                Row(
+                  children: [
+                    Text(
+                      'Enter Amount',
+                      style: TextStyle(
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black54,
+                        height: 1.3,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                     Icon(Icons.arrow_forward_ios,size: 12,)
+                  ],
+                ),
+               
+              ],
             ),
           ),
         ),
@@ -658,7 +682,7 @@ Widget _buildProviderOption(
             crossAxisCount: 2,
             crossAxisSpacing: 14,
             mainAxisSpacing: 14,
-            childAspectRatio: 1.1,
+            childAspectRatio: 1.4,
           ),
           itemBuilder: (context, index) {
             final plan = plans[index];
@@ -685,45 +709,52 @@ Widget _buildProviderOption(
                     ),
                   ],
                 ),
-                child: Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Text(
-      plan['name']!,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: Colors.black,
-      ),
-    ),
-    const SizedBox(height: 6),
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.yellow.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: const Text(
-        '1 month',
-        style: TextStyle(
-          fontSize: 11.5,
+                child: Padding(
+  padding: const EdgeInsets.only(left: 20), // ≈ 1mm padding
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start, // align everything left
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Text(
+        plan['name']!,
+        textAlign: TextAlign.left,
+        style: const TextStyle(
+          fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: Colors.orange,
+          color: Colors.black,
         ),
       ),
-    ),
-    const SizedBox(height: 6),
-    Text(
-      plan['price']!,
-      style: const TextStyle(
-        fontSize: 14,
-        color: Colors.black87,
-        fontWeight: FontWeight.w500,
+      const SizedBox(height: 6),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.yellowAccent.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: const Text(
+          '1 month',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w600,
+            color: Colors.orange,
+          ),
+        ),
       ),
-    ),
-  ],
+      const SizedBox(height: 6),
+      Text(
+        plan['price']!,
+        textAlign: TextAlign.left,
+        style: const TextStyle(
+          fontSize: 14,
+          color: Colors.black87,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    ],
+  ),
 ),
+
 
               ),
             );
@@ -841,7 +872,7 @@ _cashbackBannerSection(),
           ),
         ),
 
-        const SizedBox(height: 14),
+        const SizedBox(height: 19),
 
         // ---------------- Bet9ja Promo Section ----------------
         Container(

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import this for input formatters
 import 'package:next/main%20pages/dashboard_page.dart';
@@ -98,11 +100,22 @@ class _CreateAccountLoginPageState extends State<CreateAccountLoginPage> {
                         );
                       }
                     : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0D47A1),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                    (Set<WidgetState> states) {
+                      if (states.contains(WidgetState.disabled)) {
+                        return const Color.fromARGB(255, 13, 71, 161).withOpacity(0.3); 
+                      }
+                      return const Color(0xFF0D47A1);
+                    },
+                  ),
+                  padding: WidgetStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                   ),
                 ),
                 child: const Text(

@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:next/airtimeflow/airtime_success_page.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
-const Color _kAccentBlue = Color(0xFF0B63D6);
+const Color _kAccentBlue = Color(0xFF0D47A1);
 
 class AirtimePage extends StatefulWidget {
   const AirtimePage({Key? key}) : super(key: key);
@@ -82,7 +82,32 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               ),
             ),
             const SizedBox(height: 10),
-            _buildConfirmationRow("Product name", "Airtime"),
+            Padding(
+  padding: const EdgeInsets.symmetric(vertical: 4),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      const Text("Product name", style: TextStyle(color: Colors.black54)),
+      Row(
+        children: [
+          ClipOval(
+            child: Image.asset(
+              _networks.firstWhere((n) => n['name'] == _selectedNetwork)['icon']!,
+              width: 24,
+              height: 24,
+            ),
+          ),
+          const SizedBox(width: 6),
+          const Text(
+            "Airtime",
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+
             _buildConfirmationRow("Recipient Mobile", phoneNumber),
             _buildConfirmationRow("Amount", "₦${amount.toStringAsFixed(2)}"),
             const SizedBox(height: 5),
@@ -108,11 +133,11 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
                 children: [
                   const Text("Available Balance (₦56,000.00)",
                       style: TextStyle(fontSize: 14, color: Colors.black87)),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Wallet", style: TextStyle(fontSize: 14, color: Colors.black54)),
+                      const Text("Wallet(₦56,000.00)", style: TextStyle(fontSize: 14, color: Colors.black54)),
                       Text("-₦${amount.toStringAsFixed(2)}",
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                     ],
@@ -127,7 +152,7 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0D47A1),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                 ),
                 onPressed: () async {
                 Navigator.pop(context); // close confirmation
@@ -227,7 +252,7 @@ void dispose() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Cashback Banner
-             Container(
+            Container(
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -240,7 +265,7 @@ void dispose() {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // coin image
+              // Faint coin image (transparent background)
               Positioned(
                 left: 10,
                 top: 10,
@@ -248,17 +273,17 @@ void dispose() {
                   opacity: 0.25,
                   child: Image.asset(
                     'assets/images/coin.png',
-                    width: 35,
-                    height: 35,
+                    width: 45,
+                    height: 45,
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
 
-              // Players image 
+              // Players image on the right bottom
               Positioned(
                 right: 0,
-                bottom: 20,
+                bottom: 30,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(18),
@@ -273,7 +298,7 @@ void dispose() {
 
               // Text + Button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -287,10 +312,10 @@ void dispose() {
                     ),
                     const SizedBox(height: 6),
                     const Text(
-                      'Top up ₦1,000 for betting and get up                                             to ₦100 cash back',
+                      'Top up ₦1,000 for betting and get up                                       to ₦100 cash back',
                       style: TextStyle(
                         fontSize: 12.5,
-                        color: Color.fromARGB(255, 50, 67, 76),
+                        color: Color.fromARGB(255, 3, 31, 72),
                         height: 1.3,
                       ),
                     ),
@@ -324,8 +349,6 @@ void dispose() {
             ],
           ),
         ),
-
-
               const SizedBox(height: 16),
 
               // --- TOP-UP SECTION
@@ -598,13 +621,13 @@ ElevatedButton(
       : null,
   style: ElevatedButton.styleFrom(
     backgroundColor:
-        _isFormValid ? _kAccentBlue : Colors.grey.shade300,
+        _isFormValid ? _kAccentBlue : const Color.fromARGB(255, 13, 71, 161).withOpacity(0.9),
     elevation: 0,
     foregroundColor:
-        _isFormValid ? Colors.white : Colors.black45,
-    padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
+        _isFormValid ? Colors.white : Colors.white,
+    padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 9),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(100),
     ),
   ),
   child: const Text(
