@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AirtimeSuccessPage extends StatefulWidget {
   const AirtimeSuccessPage({Key? key}) : super(key: key);
@@ -269,9 +270,22 @@ class _AirtimeSuccessPageState extends State<AirtimeSuccessPage> {
                       children: [
                         Expanded(
                           child: OutlinedButton.icon(
-                            onPressed: () {
-                              // non-functional for now
-                            },
+                            onPressed: () async {
+  const receiptMessage = '''
+Airtime Purchase Successful ✅
+
+Amount: ₦4,000
+Phone: 08122388400
+Network: Airtel Nigeria
+Cashback: ₦80.00
+Status: Successful 🎉
+
+Thank you for using Next App!
+  ''';
+
+  await Share.share(receiptMessage, subject: 'Airtime Purchase Receipt');
+},
+
                             icon: Icon(
                               Icons.share_outlined,
                               size: (18.0 * scale).clamp(14.0, 20.0),

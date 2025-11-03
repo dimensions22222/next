@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'Electricitytransactpage.dart';
 
@@ -352,9 +353,22 @@ class _ElectricitySuccesspageState extends State<ElectricitySuccesspage> {
                       children: [
                         Expanded(
                           child: OutlinedButton.icon(
-                            onPressed: () {
-                              // non-functional for now
-                            },
+                           onPressed: () {
+  final receiptText = '''
+💡 Electricity Purchase Receipt
+
+Provider: ${widget.provider}
+Plan: ${widget.plan}
+Amount Paid: ₦${widget.amount}
+Token: 6497-7401-0380-4494
+Units: 4.4 kWh
+
+Thank you for using Next!
+  ''';
+
+  Share.share(receiptText, subject: 'Electricity Purchase Receipt');
+},
+
                             icon: Icon(
                               Icons.share_outlined,
                               size: (18.0 * scale).clamp(14.0, 20.0),

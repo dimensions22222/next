@@ -25,6 +25,7 @@ class _TvSubPageState extends State<TvSubPage>
 
   // NEW DSTV REVIEW FLOW
   double walletBalance = 56000; // mock wallet balance ₦56,000
+final ValueNotifier<bool> _shakeSmartcard = ValueNotifier(false);
 
 
 
@@ -1080,31 +1081,51 @@ void _showReviewDialog(String planName, String price) {
               const SizedBox(height: 24),
 
               // ---- Proceed Button ----
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _showConfirmPayment(planName, int.parse(
-                        amount.replaceAll(RegExp(r'[^0-9]'), '')));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0D47A1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+              ValueListenableBuilder<bool>(
+  valueListenable: ValueNotifier(isVerified),
+  builder: (context, verified, _) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: verified 
+        ? const Color(0xFF0D47A1) 
+        : const Color.fromARGB(255, 13, 71, 161).withOpacity(0.2),
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+      ),
+      onPressed: verified
+          ? () {
+              Navigator.pop(context);
+              _showConfirmPayment(
+                planName,
+                int.parse(amount.replaceAll(RegExp(r'[^0-9]'), '')),
+              );
+            }
+          : () {
+              // Trigger shake + SnackBar
+              _shakeSmartcard.value = true;
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Please verify your smartcard number before proceeding.',
                   ),
-                  child: const Text(
-                    "Proceed",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
+                  backgroundColor: Colors.red,
                 ),
-              ),
+              );
+            },
+      child: const Text(
+        'Proceed',
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  },
+),
+
             ],
           ),
         ),
@@ -1156,7 +1177,42 @@ void _showReviewDialog(String planName, String price) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _reviewRow("Product name", "DSTV TV"),
+                 // --- Provider info with logo + name ---
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    const Text(
+      "Product",
+      style: TextStyle(fontSize: 13, color: Colors.black54),
+    ),
+    Row(
+      children: [
+        // Circular logo
+        Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(_getProviderLogo(selectedProvider)),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          selectedProvider,
+          style: const TextStyle(
+            fontSize: 13.5,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    ),
+  ],
+),
+
                   _reviewRow("Account Number", "2081223344"),
                   _reviewRow("Account Name", "TAIWO AYOOMODARA"),
                   _reviewRow("Amount", amount.toStringAsFixed(2)),

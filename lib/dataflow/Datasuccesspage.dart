@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 
 
@@ -281,9 +282,25 @@ class _DataSuccesspageState extends State<DataSuccesspage> {
                       children: [
                         Expanded(
                           child: OutlinedButton.icon(
-                            onPressed: () {
-                              // non-functional for now
-                            },
+                            onPressed: () async {
+  final message = '''
+📱 *Data Purchase Receipt*
+-------------------------
+Provider: ${widget.provider.toUpperCase()} - NIGERIA
+Phone Number: ${widget.phoneNumber}
+Amount: ₦${widget.amount}
+Status: ✅ Successful
+Date: ${DateTime.now().toLocal().toString().split('.')[0]}
+
+Thank you for using our service!
+''';
+
+  await Share.share(
+    message,
+    subject: 'Data Purchase Receipt',
+  );
+},
+
                             icon: Icon(
                               Icons.share_outlined,
                               size: (18.0 * scale).clamp(14.0, 20.0),

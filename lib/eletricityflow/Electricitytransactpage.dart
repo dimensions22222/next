@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:share_plus/share_plus.dart';
 
 class ElectricityTransactPage extends StatelessWidget {
   final String customerName;
@@ -225,7 +225,8 @@ class ElectricityTransactPage extends StatelessWidget {
                 SnackBar(content: Text("Issue report feature coming soon")),
               );
             },
-            child: Text("Report Issue", style: TextStyle(color: Color(0xFF0D47A1))),
+            child: Text("Report Issue",
+                style: TextStyle(color: Color(0xFF0D47A1))),
           ),
         ),
         SizedBox(width: 16),
@@ -238,10 +239,11 @@ class ElectricityTransactPage extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(vertical: 14),
             ),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Receipt shared successfully!")),
-              );
+              onPressed:
+              () {
+                Share.share(
+                    'Electricity Purchase Receipt');
+              
             },
             child: Text("Share Receipt", style: TextStyle(color: Colors.white)),
           ),

@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, deprecated_member_use, unused_field
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // optional: for copy to clipboard if you enable it
+import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart'; // optional: for copy to clipboard if you enable it
 
 class RewardsPage extends StatefulWidget {
   const RewardsPage({super.key});
@@ -15,7 +16,7 @@ class _RewardsPageState extends State<RewardsPage>
   late TabController _tabController;
   int _currentIndex = 0;
 
-  static const Color primary = Color(0xFF6366F1);
+  static const Color primary = Color(0xFF0D47A1);
   static const Color secondary = Color(0xFF8B5CF6);
   static const Color textPrimary = Color(0xFF111827);
   static const Color textSecondary = Color(0xFF6B7280);
@@ -442,7 +443,7 @@ class _RewardsPageState extends State<RewardsPage>
                           icon: const Icon(
                             Icons.copy_rounded,
                             size: 18,
-                            color: Color.fromARGB(46, 17, 24, 39),
+                            color: Color.fromARGB(108, 17, 24, 39),
                           ),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(
@@ -458,30 +459,34 @@ class _RewardsPageState extends State<RewardsPage>
                           ),
                         ),
                         SizedBox(width: 8),
-                        OutlinedButton.icon(
-                          onPressed: () {},
-                          label: const Text(
-                            "Share",
-                            style: TextStyle(
-                              color: Color(0xFF111827),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                              color: Color(0xFFE5E7EB),
-                              width: 1,
-                            ),
-                            backgroundColor:
-                                const Color.fromARGB(255, 235, 246, 255),
-                            foregroundColor: secondary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
-                          ),
-                        ),
+                       OutlinedButton.icon(
+  onPressed: () {
+    const referralCode = "49RTXA";
+    const message =
+        "Hey! 🎉 Use my referral code *$referralCode* to sign up and earn bonus points on Texa. Download the app here: https://Trigon@NextApp.com/app";
+    Share.share(message, subject: "Earn rewards with my referral code!");
+  },
+  
+  label: const Text(
+    "Share",
+    style: TextStyle(
+      color:Color.fromARGB(108, 17, 24, 39),
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+  style: OutlinedButton.styleFrom(
+    side: const BorderSide(
+      color: Color(0xFFE5E7EB),
+      width: 1,
+    ),
+    backgroundColor: Color.fromARGB(255, 235, 246, 255),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(50),
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+  ),
+),
+
                       ],
                     ),
                   ),
@@ -673,7 +678,7 @@ class RewardActivityTile extends StatelessWidget {
 
     if (title.toLowerCase().contains('onboarding')) {
       leadingIcon = Icons.verified_user_rounded;
-      iconColor = const Color(0xFF6366F1);
+      iconColor = const Color(0xFF0D47A1);
       iconBg = const Color(0xFFEFF6FF);
     } else if (title.toLowerCase().contains('bill')) {
       leadingIcon = Icons.receipt_long_rounded;
@@ -752,7 +757,7 @@ class RewardHistoryTile extends StatelessWidget {
 
     if (title.toLowerCase().contains('onboard')) {
       leadingIcon = Icons.verified_user_rounded;
-      iconColor = const Color(0xFF6366F1);
+      iconColor = const Color(0xFF0D47A1);
       iconBg = const Color(0xFFEFF6FF);
     } else if (title.toLowerCase().contains('bill')) {
       leadingIcon = Icons.receipt_long_rounded;
@@ -835,7 +840,7 @@ class RewardHowToTile extends StatelessWidget {
             radius: 18,
             backgroundColor: Color(0xFFEFF6FF),
             child: Icon(Icons.info_outline_rounded,
-                color: Color(0xFF6366F1), size: 22),
+                color: Color(0xFF0D47A1), size: 22),
           ),
           title: Text(
             title,

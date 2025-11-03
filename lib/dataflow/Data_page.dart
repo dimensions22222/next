@@ -569,16 +569,29 @@ int _gridCountForWidth(double width) {
                               decoration: const InputDecoration(border: InputBorder.none, hintText: '08133228899'),
                             ),
                           ),
-                          Container(width: 36, height: 36, decoration: const BoxDecoration(color: _kAccentBlue, shape: BoxShape.circle), child: const Icon(Icons.person, color: Colors.white)),
+                          Container(width: 36, height: 36, decoration: const BoxDecoration(color: _kAccentBlue, shape: BoxShape.circle), child: const Icon(Icons.account_circle_outlined, color: Colors.white)),
                         ]),
                       ),
-                    ]),
+                    ]
+                    ),
                   ),
                 ]),
               ),
 
               const SizedBox(height: 18),
-
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 18.0),
+                child: Text(
+                  'Enjoy up to 2% cashback, with a maximum of ₦40 on your first two MTN bundle recharges daily', 
+                  style: TextStyle(
+                    fontSize: 14,
+                     fontWeight: FontWeight.w400,
+                     color: Color(0xFF0D47A1), 
+                     height: 1.3,
+                     )
+                     ),
+              ),
+              const SizedBox(height: 12),
               // Top up section title
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 18.0),
