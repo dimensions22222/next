@@ -14,6 +14,9 @@ import 'dart:io';
 
 import 'package:next/dataflow/Data_page.dart';
 import 'package:next/eletricityflow/Electricitypage.dart';
+import 'package:next/main%20pages/Addmoneypage.dart';
+import 'package:next/main%20pages/ContactUspage.dart';
+import 'package:next/main%20pages/Notificationpage.dart';
 
 
 
@@ -353,13 +356,21 @@ GestureDetector(
                         children: [
                           IconButton(
                             icon: Icon(Icons.headset_mic_outlined, size: 22, color: _mutedGrey),
-                            onPressed: () {},
+                            onPressed: () {Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const SupportPage()),
+                                );},
                           ),
                           Stack(
                             children: [
                               IconButton(
                                 icon: const Icon(Icons.notifications_none_outlined, size: 26),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const NotificationPage()),
+                                );
+                                },
                               ),
                               Positioned(
                                 right: 12,
@@ -504,25 +515,39 @@ Container(
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(10),
-          onTap: () => addMoney(5000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: Row(
-              children: const [
-                Icon(Icons.add, color: Colors.black, size: 18),
-                SizedBox(width: 6),
-                Text(
-                  "Add money",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13.5,
-                  ),
-                ),
-              ],
-            ),
+  borderRadius: BorderRadius.circular(10),
+  onTap: () {
+    // Navigate to placeholder Add Money page
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AddMoneyPage(),
+      ),
+    );
+  },
+  onLongPress: () {
+    // Long press adds money
+    HapticFeedback.mediumImpact(); // optional feedback
+    addMoney(5000);
+  },
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+    child: Row(
+      children: const [
+        Icon(Icons.add, color: Colors.black, size: 18),
+        SizedBox(width: 6),
+        Text(
+          "Add money",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 13.5,
           ),
         ),
+      ],
+    ),
+  ),
+),
+
       ),
     ),
   ],
