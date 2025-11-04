@@ -1,0 +1,12 @@
+class CustomWigdetprimary extends StatelessWidget {
+  const CustomWigdetprimary({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
+
+    );
+  }
+}
+
