@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:next/main%20pages/create_acct_page.dart';
 import 'package:next/main%20pages/login_faceid_page.dart';
+import 'package:next/main pages/utils/widgets/';
 
 
 
@@ -112,62 +113,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             const SizedBox(height: 40),
 
             /// Buttons
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CreateAccountPage(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(340, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    backgroundColor: const Color(0xFF0D47A1),
-                  ),
-                  child: const Text(
-                    'Create a new account',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(340, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(color: Color(0xFF0D47A1), width: 1),
-                ),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Color(0xFF0D47A1),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              ],
-            ),
+           /// Buttons
+Column(
+  mainAxisAlignment: MainAxisAlignment.end,
+  children: [
+    CustomButton(
+      text: 'Create a new account',
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CreateAccountPage()),
+        );
+      },
+    ),
+    const SizedBox(height: 20),
+    CustomButton(
+      text: 'Login',
+      isOutlined: true,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      },
+    ),
+  ],
+),
+
             const SizedBox(height: 20),
             // Moved inside the ListView children
           ],
