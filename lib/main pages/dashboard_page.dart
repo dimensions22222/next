@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, prefer_const_declarations, prefer_const_literals_to_create_immutables, deprecated_member_use, unused_field, unused_element, use_build_context_synchronously
+// ignore_for_file: unused_field, deprecated_member_use, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -84,7 +84,7 @@ final ImagePicker _picker = ImagePicker();
     final isTablet = width > 700;
 
     final double horizontalPadding = isTablet ? 36 : 20;
-    final double cardRadius = 16;
+    const double cardRadius = 16;
     final double sectionSpacing = isTablet ? 28 : 20;
 
     return Scaffold(
@@ -332,13 +332,13 @@ GestureDetector(
                               const SizedBox(height: 4),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 5, 201, 245),
+                                  color: const Color.fromARGB(255, 5, 201, 245),
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: Color.fromARGB(255, 107, 195, 215)),
+                                  border: Border.all(color: const Color.fromARGB(255, 107, 195, 215)),
                                 ),
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                child: Row(
-                                  children: const [
+                                child: const Row(
+                                  children: [
                                     Icon(Icons.star, color: Colors.amber, size: 14),
                                     SizedBox(width: 6),
                                     Text(
@@ -382,7 +382,7 @@ GestureDetector(
                                     color: Colors.red,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
@@ -449,8 +449,8 @@ Container(
             onTap: () {
               // Navigate to your transaction history page here if needed
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 Text(
                   "Transaction history",
                   style: TextStyle(
@@ -530,10 +530,10 @@ Container(
     HapticFeedback.mediumImpact(); // optional feedback
     addMoney(5000);
   },
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+  child: const Padding(
+    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     child: Row(
-      children: const [
+      children: [
         Icon(Icons.add, color: Colors.black, size: 18),
         SizedBox(width: 6),
         Text(
@@ -618,7 +618,7 @@ Container(
                                     const SizedBox(height: 4),
                                     Text(
                                       tx['date'],
-                                      style: TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+                                      style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
                                     ),
                                   ],
                                 ),
@@ -632,7 +632,7 @@ Container(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w800,
                                       color: specialBlack
-                                          ? Color(0xFF0F172A)
+                                          ? const Color(0xFF0F172A)
                                           : (isCredit ? Colors.green : Colors.red),
                                     ),
                                   ),
@@ -657,8 +657,8 @@ Container(
                             ],
                           ),
                           if (index != transactions.length - 1)
-                            Padding(
-                              padding: const EdgeInsets.only(left: 58.0, top: 10, bottom: 8),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 58.0, top: 10, bottom: 8),
                               child: Divider(
                                 color: Color(0xFFE2E8F0),
                                 thickness: 0.8,
@@ -683,9 +683,9 @@ Container(
                       BoxShadow(color: Color(0x11000000), blurRadius: 6, offset: Offset(0, 2)),
                     ],
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       _QuickAction(icon: Icons.phone_android, label: "Airtime"),
                       _QuickAction(icon: Icons.tv, label: "TV"),
                       _QuickAction(icon: Icons.wifi, label: "Data"),
@@ -715,10 +715,10 @@ Container(
                         child: const Icon(Icons.card_giftcard, color: Colors.white, size: 22),
                       ),
                       const SizedBox(width: 12),
-                      Expanded(
+                      const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "Hurry and earn from Texa",
                               style: TextStyle(
@@ -803,25 +803,25 @@ class _QuickAction extends StatelessWidget {
         case "Airtime":
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AirtimePage()),
+            MaterialPageRoute(builder: (context) => const AirtimePage()),
           );
           break;
         case "TV":
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TvSubPage()),
+            MaterialPageRoute(builder: (context) => const TvSubPage()),
           );
           break;
         case "Data":
          Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DataSubPage()),
+            MaterialPageRoute(builder: (context) => const DataSubPage()),
           );
           break;
         case "Electricity":
            Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ElectricityPage()),
+            MaterialPageRoute(builder: (context) => const ElectricityPage()),
           );
           break;
       }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:next/main%20pages/create_acc_login_page.dart';
 import 'package:next/main%20pages/create_acct_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -117,35 +118,22 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: height * 0.08),
 
               // Login button
-              SizedBox(
-                width: double.infinity,
-                height: height * 0.06,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CreateAccountLoginPage(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0D47A1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    "Login with phone number",
-                    style: TextStyle(
-                      fontSize: width * 0.04,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+             Center(
+  child: CustomButton(
+    text: 'Login with phone number',
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CreateAccountLoginPage(),
+        ),
+      );
+    },
+    color: const Color(0xFF0D47A1),
+    width: double.infinity,
+    height: height * 0.06,
+  ),
+),
 
               const Spacer(),
 

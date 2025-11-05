@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 import 'package:next/main%20pages/verify_BVN_NIN_page.dart';
 
 class CreatePinScreen extends StatefulWidget {
@@ -142,7 +145,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                     width: 50,
                     height: 3,
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: const Color(0xFF0D47A1),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -180,32 +183,17 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
 
               const SizedBox(height: 20),
 
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: _isButtonEnabled ? _goNext : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _isButtonEnabled
-                        ? const Color(0xFF0D47A1)
-                        : Colors.blue[100],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                      color: _isButtonEnabled
-                          ? Colors.white
-                          : Colors.blueGrey[300],
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+             CustomButton(
+              text: "Next",
+              onPressed: _isButtonEnabled ? _goNext : () {},
+              color: _isButtonEnabled
+                  ? const Color(0xFF0D47A1)
+                  : const Color.fromARGB(255, 13, 71, 161).withOpacity(0.5),
+              textColor: _isButtonEnabled
+                  ? Colors.white
+                  : Colors.white,
+              width: double.infinity,
+            ),
 
               const SizedBox(height: 30),
             ],

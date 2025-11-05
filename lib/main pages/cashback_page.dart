@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:next/main%20pages/create_acct_page.dart';
 import 'package:next/main%20pages/login_faceid_page.dart';
-import 'package:next/main pages/utils/widgets/';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 
 
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   TextSpan(
-                    text: " on every Airtime/\nData top up",
+                    text: " on every Airtime//nData top up",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
@@ -111,34 +111,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
 
             const SizedBox(height: 40),
-
-            /// Buttons
            /// Buttons
-Column(
-  mainAxisAlignment: MainAxisAlignment.end,
-  children: [
-    CustomButton(
-      text: 'Create a new account',
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CreateAccountPage()),
-        );
-      },
-    ),
-    const SizedBox(height: 20),
-    CustomButton(
-      text: 'Login',
-      isOutlined: true,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-      },
-    ),
-  ],
-),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CustomButton(
+                  text: 'Create a new account',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CreateAccountPage()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  text: 'Login',
+                  isOutlined: true,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
+                  },
+                ),
+              ],
+            ),
 
             const SizedBox(height: 20),
             // Moved inside the ListView children

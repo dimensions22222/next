@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next/customWidget/ticket.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 class AccountLimitPage extends StatelessWidget {
   const AccountLimitPage({super.key});
@@ -270,27 +271,18 @@ class AccountLimitPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Upgrade button
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0D47A1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                ),
-                onPressed: () {
-                  // Upgrade action
-                },
-                child: const Text(
-                  'Upgrade to Tier 2',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                ),
-              ),
-            ),
+            Center(
+  child: CustomButton(
+    text: 'Upgrade to Tier 2',
+    width: double.infinity,
+    height: 50,
+    color: const Color(0xFF0D47A1),
+    onPressed: () {
+      // Add upgrade action here
+    },
+  ),
+),
+
           ],
         ),
       ),

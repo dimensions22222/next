@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
 import 'dart:math';
 
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
+
 class SuccessScreen extends StatefulWidget {
   const SuccessScreen({Key? key}) : super(key: key);
 
@@ -123,36 +125,22 @@ class _SuccessScreenState extends State<SuccessScreen> {
                           SizedBox(height: screenHeight * 0.03),
 
                           // Continue Button
-                          SizedBox(
-                            width: double.infinity,
-                            height: screenHeight * 0.065,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DashboardPage()),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF0D47A1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                elevation: 2,
-                                shadowColor: Colors.blue.shade200,
-                              ),
-                              child: Text(
-                                "Continue to Dashboard",
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.04,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
+                          CustomButton(
+                          text: 'Continue to Dashboard',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const DashboardPage()),
+                            );
+                          },
+                          color: const Color(0xFF0D47A1),
+                          textColor: Colors.white,
+                          width: double.infinity,
+                          height: screenHeight * 0.065,
+                          borderRadius: 30,
+                          elevation: 2,
+                        ),
+
                         ],
                       ),
                     ),

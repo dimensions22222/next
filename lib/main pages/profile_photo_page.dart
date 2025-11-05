@@ -6,7 +6,8 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:image_picker/image_picker.dart';
 import 'package:next/main%20pages/loading_phonenNo_page.dart';
-import 'package:next/customWidget/profile_image_store.dart'; // Add this import at the top
+import 'package:next/customWidget/profile_image_store.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart'; // Add this import at the top
 
 
 class ProfilePhotoScreen extends StatefulWidget {
@@ -256,40 +257,26 @@ class _ProfilePhotoScreenState extends State<ProfilePhotoScreen> {
                 SizedBox(height: screenHeight * 0.06),
 
                 // Continue Button
-                SizedBox(
-                  width: double.infinity,
-                  height: screenHeight * 0.065,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (!hasImage) {
-                        _showProfileIncompleteDialog(); // show dialog only if no image
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoadingAcctPage(),
-                          ),
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          hasImage ? const Color(0xFF0D47A1) : Colors.blue.shade100,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+               CustomButton(
+                text: "Continue",
+                onPressed: () {
+                  if (!hasImage) {
+                    _showProfileIncompleteDialog();
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoadingAcctPage(),
                       ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.045,
-                        fontWeight: FontWeight.w600,
-                        color: hasImage ? Colors.white : Colors.grey.shade700,
-                      ),
-                    ),
-                  ),
-                ),
+                    );
+                  }
+                },
+                color: const Color(0xFF0D47A1),
+                textColor: hasImage ? Colors.white : Colors.grey.shade700,
+                borderRadius: 30,
+                enabled: hasImage,
+                height: screenHeight * 0.065,
+              ),
 
                 // Skip Button
                 TextButton(

@@ -88,46 +88,47 @@ class _CreateAccountLoginPageState extends State<CreateAccountLoginPage> {
 
             // Create Account button
             SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: (_phoneNumber.length >= 11)
-                    ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DashboardPage(),
-                          ),
-                        );
-                      }
-                    : null,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return const Color.fromARGB(255, 13, 71, 161).withOpacity(0.3); 
-                      }
-                      return const Color(0xFF0D47A1);
-                    },
-                  ),
-                  padding: WidgetStateProperty.all(
-                    const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+  width: double.infinity,
+  child: ElevatedButton(
+    onPressed: (_phoneNumber.length >= 11)
+        ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DashboardPage(),
               ),
-            ),
+            );
+          }
+        : null,
+    style: ButtonStyle(
+      backgroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
+            return const Color.fromARGB(255, 13, 71, 161).withOpacity(0.3);
+          }
+          return const Color(0xFF0D47A1);
+        },
+      ),
+      padding: WidgetStateProperty.all(
+        const EdgeInsets.symmetric(vertical: 16),
+      ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+      ),
+    ),
+    child: const Text(
+      'Create Account',
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
+  ),
+),
+
           ],
         ),
       ),

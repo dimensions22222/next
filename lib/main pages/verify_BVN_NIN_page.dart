@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:next/main%20pages/profile_photo_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 class IdentityVerificationScreen extends StatefulWidget {
   const IdentityVerificationScreen({Key? key}) : super(key: key);
@@ -90,94 +91,54 @@ class _IdentityVerificationScreenState
               SizedBox(height: height * 0.015),
 
               // BVN / NIN Buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          selectedIdType = "BVN";
-                          idController.clear();
-                        });
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                          color: selectedIdType == "BVN"
-                              ?  const Color(0xFF0D47A1)
-                              : Colors.grey.shade300,
-                        ),
-                        backgroundColor: selectedIdType == "BVN"
-                            ? Colors.white
-                            : const Color(0xFFF7F7F7),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(vertical: height * 0.018),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "BVN",
-                            style: TextStyle(
-                              color: selectedIdType == "BVN"
-                                  ? Colors.black
-                                  : Colors.grey.shade600,
-                              fontSize: width * 0.04,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Icon(
-                            Icons.verified_user_sharp,
-                            size: width * 0.045,
-                            color: selectedIdType == "BVN"
-                                ?  const Color(0xFF0D47A1)
-                                : Colors.grey.shade400,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: width * 0.04),
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          selectedIdType = "NIN";
-                          idController.clear();
-                        });
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                          color: selectedIdType == "NIN"
-                              ?  const Color(0xFF0D47A1)
-                              : Colors.grey.shade300,
-                        ),
-                        backgroundColor: selectedIdType == "NIN"
-                            ? Colors.white
-                            : const Color(0xFFF7F7F7),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(vertical: height * 0.018),
-                      ),
-                      child: Text(
-                        "NIN",
-                        style: TextStyle(
-                          color: selectedIdType == "NIN"
-                              ? Colors.black
-                              : Colors.grey.shade600,
-                          fontSize: width * 0.04,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              Align(
+  alignment: Alignment.center,
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      CustomButton(
+        text: "BVN",
+        width: 150,
+        height: 45,
+        borderRadius: 6,
+        isOutlined: true,
+        onPressed: () {
+          setState(() {
+            selectedIdType = "BVN";
+            idController.clear();
+          });
+        },
+        color: selectedIdType == "BVN"
+            ? const Color(0xFF0D47A1)
+            : Colors.grey.shade400,
+        textColor: selectedIdType == "BVN"
+            ? Colors.black
+            : Colors.grey.shade600,
+      ),
+      const SizedBox(width: 16),
+      CustomButton(
+        text: "NIN",
+        width: 150,
+        height: 45,
+        borderRadius: 6,
+        isOutlined: true,
+        onPressed: () {
+          setState(() {
+            selectedIdType = "NIN";
+            idController.clear();
+          });
+        },
+        color: selectedIdType == "NIN"
+            ? const Color(0xFF0D47A1)
+            : Colors.grey.shade400,
+        textColor: selectedIdType == "NIN"
+            ? Colors.black
+            : Colors.grey.shade600,
+      ),
+    ],
+  ),
+),
 
               SizedBox(height: height * 0.04),
 
@@ -229,49 +190,23 @@ class _IdentityVerificationScreenState
               SizedBox(height: height * 0.08),
 
               // Next Button
-              SizedBox(
-                width: double.infinity,
-                height: height * 0.065,
-                child: ElevatedButton(
-                  onPressed: isButtonEnabled
-                      ? () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ProfilePhotoScreen(),
-                            ),
-                          );
-                        }
-                      : null,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return const Color(0xFFDDE4F2); // grayish-blue
-                        }
-                        return  const Color(0xFF0D47A1); // active blue
-                      },
-                    ),
-                    elevation: const MaterialStatePropertyAll(0),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                      fontSize: width * 0.043,
-                      color: isButtonEnabled
-                          ? Colors.white
-                          :  const Color(0xFF0D47A1),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+              CustomButton(
+  text: "Next",
+  onPressed: isButtonEnabled
+      ? () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfilePhotoScreen()),
+          );
+        }
+      : () {},
+  color: const Color(0xFF0D47A1),
+  textColor: Colors.white,
+  width: double.infinity,
+  borderRadius: 30,
+  enabled: isButtonEnabled,
+),
+
 
               SizedBox(height: height * 0.03),
             ],

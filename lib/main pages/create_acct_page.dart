@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next/main%20pages/acct_Otp_verify_page%20.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 
 
@@ -160,38 +161,25 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             const SizedBox(height: 32),
 
             // Continue button
-            SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: isPhoneValid
+            CustomButton(
+            text: 'Continue',
+            onPressed: isPhoneValid
                 ? () {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const VerifyPhoneNumber(),
-                  ),
-                  );
-                }
-                : null,
-              style: ElevatedButton.styleFrom(
-              backgroundColor: isPhoneValid
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const VerifyPhoneNumber(),
+                      ),
+                    );
+                  }
+                : () {},
+            color: isPhoneValid
                 ? const Color(0xFF0D47A1)
-                : const Color(0xFFB3C6E6), // faded blue when disabled
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              ),
-              child: const Text(
-              'Continue',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-              ),
-            ),
-            ),
+                : const Color(0xFFB3C6E6),
+            textColor: Colors.white,
+            width: double.infinity,
+          ),
+
           ],
           ),
         ),

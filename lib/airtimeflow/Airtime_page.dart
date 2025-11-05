@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:next/airtimeflow/airtime_success_page.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 const Color _kAccentBlue = Color(0xFF0D47A1);
 
 class AirtimePage extends StatefulWidget {
@@ -146,22 +147,17 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0D47A1),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-                ),
-                onPressed: () async {
-                Navigator.pop(context); // close confirmation
-                await _showEnterPinPopup(context); // show PIN popup
-              },
+           CustomButton(
+  text: 'Confirm',
+  width: double.infinity,
+  height: 48,
+  color: const Color(0xFF0D47A1),
+  onPressed: () async {
+    Navigator.pop(context);
+    await _showEnterPinPopup(context);
+  },
+),
 
-                child: const Text("Confirm", style: TextStyle(fontSize: 16, color: Colors.white)),
-              ),
-            ),
           ],
         ),
       );
@@ -322,27 +318,15 @@ void dispose() {
                     
                     const SizedBox(height: 10),
                     SizedBox(
-                      width: 100,
-                      height: 20,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF0D47A1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: const Text(
-                          'Top up now',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
+  width: 100,
+  height: 25,
+  child: CustomButton(
+    text: 'Top up now',
+    color: const Color(0xFF0D47A1),
+    onPressed: () {},
+  ),
+),
+
                   ],
                 ),
               ),

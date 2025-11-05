@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next/TV%20sub%20flow/TVsub_successpage.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 class TvSubPage extends StatefulWidget {
   const TvSubPage({Key? key}) : super(key: key);
@@ -282,28 +283,15 @@ final Map<String, Map<String, dynamic>> providerBrand = {
                 const SizedBox(height: 24),
 
                 // ---- Proceed Button ----
-                ElevatedButton(
+                CustomButton(
+                  text:'Proceed', 
                   onPressed: () {
                     setState(() =>
                         selectedProvider = tempSelection ?? selectedProvider);
                     Navigator.pop(context);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0D47A1),
-                    minimumSize: const Size.fromHeight(48),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text(
-                    'Proceed',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+                )
+              
               ],
             );
           },
@@ -711,9 +699,9 @@ Widget _buildProviderOption(
                   ],
                 ),
                 child: Padding(
-  padding: const EdgeInsets.only(left: 20), // ≈ 1mm padding
+  padding: const EdgeInsets.only(left: 20), 
   child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start, // align everything left
+    crossAxisAlignment: CrossAxisAlignment.start, 
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
@@ -1084,17 +1072,8 @@ void _showReviewDialog(String planName, String price) {
               ValueListenableBuilder<bool>(
   valueListenable: ValueNotifier(isVerified),
   builder: (context, verified, _) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: verified 
-        ? const Color(0xFF0D47A1) 
-        : const Color.fromARGB(255, 13, 71, 161).withOpacity(0.2),
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
-        ),
-      ),
+    return  CustomButton(
+      text:'Proceed',
       onPressed: verified
           ? () {
               Navigator.pop(context);
@@ -1111,18 +1090,11 @@ void _showReviewDialog(String planName, String price) {
                   content: Text(
                     'Please verify your smartcard number before proceeding.',
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.black,
                 ),
               );
             },
-      child: const Text(
-        'Proceed',
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
+      );
   },
 ),
 
@@ -1326,11 +1298,9 @@ Row(
             const SizedBox(height: 26),
 
             // Confirm button
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
+             CustomButton(
+              text: "Confirm",
+                  onPressed: () {
                   Navigator.pop(context);
                   if (hasEnoughBalance) {
                     setState(() => walletBalance -= amount);
@@ -1339,24 +1309,8 @@ Row(
                     _showInsufficientDialog();
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0D47A1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  "Confirm",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 14),
+             ),
+               const SizedBox(height: 14),
           ],
         ),
       );
