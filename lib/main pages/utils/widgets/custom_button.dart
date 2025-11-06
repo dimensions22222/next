@@ -1,17 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-// 
-// git commit -m "next"
-// git push origin main
-
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
-    this.textStyle, // ✅ made optional
+    this.textStyle, //  made optional
     this.isOutlined = false,
     this.enabled = true,
     this.color = const Color(0xFF0D47A1),
@@ -19,7 +15,7 @@ class CustomButton extends StatelessWidget {
     this.width = 340,
     this.height = 50,
     this.borderRadius = 30,
-    this.elevation = 2, // ✅ default slight shadow
+    this.elevation = 2, //  default slight shadow
     this.icon,
     this.iconOnRight = false,
   });
@@ -36,7 +32,7 @@ class CustomButton extends StatelessWidget {
   final double elevation;
   final Widget? icon;
   final bool iconOnRight;
-  final TextStyle? textStyle; // ✅ added properly
+  final TextStyle? textStyle; //  added properly
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +63,7 @@ class CustomButton extends StatelessWidget {
     final Widget label = Text(
       text,
       style: textStyle ??
-          TextStyle( // ✅ uses custom or fallback style
+          TextStyle( //  uses custom or fallback style
             color: enabled ? (isOutlined ? color : textColor) : Colors.white,
             fontWeight: FontWeight.w600,
             fontSize: 16,

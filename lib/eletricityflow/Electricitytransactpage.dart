@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ElectricityTransactPage extends StatelessWidget {
@@ -212,40 +213,40 @@ class ElectricityTransactPage extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              side: BorderSide(color: Color(0xFF0D47A1)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 16),
-            ),
+          child: CustomButton(
+            text: "Report Issue",
+            isOutlined: true,
+            color: const Color(0xFF0D47A1),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Issue report feature coming soon")),
+                const SnackBar(
+                    content: Text("Issue report feature coming soon")),
               );
             },
-            child: Text("Report Issue",
-                style: TextStyle(color: Color(0xFF0D47A1))),
+            height: 50,
+            borderRadius: 12,
+            textStyle: const TextStyle(
+              color: Color(0xFF0D47A1),
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
           ),
         ),
         SizedBox(width: 16),
         Expanded(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF0D47A1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 14),
-            ),
-              onPressed:
-              () {
-                Share.share(
-                    'Electricity Purchase Receipt');
-              
+          child: CustomButton(
+            text: "Share Receipt",
+            color: const Color(0xFF0D47A1),
+            onPressed: () {
+              Share.share('Electricity Purchase Receipt');
             },
-            child: Text("Share Receipt", style: TextStyle(color: Colors.white)),
+            height: 50,
+            borderRadius: 12,
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
           ),
         ),
       ],

@@ -105,7 +105,7 @@ SizedBox(
                 CircleAvatar(
                   radius: 42,
                   backgroundColor:
-                      const Color.fromARGB(255, 13, 71, 161).withOpacity(0.5),
+                      const Color.fromARGB(255, 255, 255, 255),
                   backgroundImage: ProfileImageStore.imageFile != null
                       ? FileImage(ProfileImageStore.imageFile!)
                       : null,
@@ -113,7 +113,7 @@ SizedBox(
                       ? const Icon(
                           Icons.person_outline,
                           color: Color(0xFF0D47A1),
-                          size: 22,
+                          size: 52,
                         )
                       : null,
                 ),

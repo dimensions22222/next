@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 
@@ -369,11 +370,18 @@ class _TvsubSuccesspageState extends State<TvsubSuccesspage> {
                     
                     // Buttons row
                     Row(
-                      children: [
-                        Expanded(
-  child: OutlinedButton.icon(
-    onPressed: () async {
-      final receiptText = '''
+  children: [
+    Expanded(
+      child: CustomButton(
+        text: 'Share Receipt',
+        isOutlined: true,
+        icon: Icon(
+          Icons.share_outlined,
+          size: (18.0 * scale).clamp(14.0, 20.0),
+          color: const Color(0xFF0D47A1),
+        ),
+        onPressed: () async {
+          final receiptText = '''
 DSTV Subscription Receipt 🧾
 
 Transaction Successful ✅
@@ -385,70 +393,48 @@ Transaction ID: 3300998811
 Date: ${DateTime.now().toString().substring(0, 19)}
 
 Thank you for choosing Trigon 🎉
-      ''';
+          ''';
 
-      await Share.share(
-        receiptText,
-        subject: 'DSTV Subscription Receipt',
-      );
-    },
-    icon: Icon(
-      Icons.share_outlined,
-      size: (18.0 * scale).clamp(14.0, 20.0),
-      color: const Color(0xFF0D47A1),
-    ),
-    label: Text(
-      'Share Receipt',
-      style: theme.textTheme.labelLarge?.copyWith(
-        color: Colors.black87,
-        fontWeight: FontWeight.w500,
-        fontSize: (14.0 * scale).clamp(12.0, 16.0),
-      ),
-    ),
-    style: OutlinedButton.styleFrom(
-      padding: EdgeInsets.symmetric(
-        vertical: (14.0 * scale).clamp(10.0, 18.0),
-      ),
-      side: const BorderSide(color: Color(0xFF0D47A1), width: 1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          (30.0 * scale).clamp(20.0, 40.0),
+          await Share.share(
+            receiptText,
+            subject: 'DSTV Subscription Receipt',
+          );
+        },
+        color: const Color(0xFF0D47A1),
+        textColor: const Color(0xFF0D47A1),
+        textStyle: theme.textTheme.labelLarge?.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: (14.0 * scale).clamp(12.0, 16.0),
         ),
+        height: (48.0 * scale).clamp(38.0, 52.0),
+        borderRadius: (30.0 * scale).clamp(20.0, 40.0),
       ),
     ),
-  ),
+    SizedBox(width: 14.0 * scale),
+    Expanded(
+      child: CustomButton(
+        text: 'View Details',
+        isOutlined: true,
+        icon: Icon(
+          Icons.receipt_long_rounded,
+          size: (18.0 * scale).clamp(14.0, 20.0),
+          color: const Color(0xFF0D47A1),
+        ),
+        onPressed: () {
+          //  Implement navigation or modal later
+        },
+        color: const Color(0xFF0D47A1),
+        textColor: const Color(0xFF0D47A1),
+        textStyle: theme.textTheme.labelLarge?.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: (14.0 * scale).clamp(12.0, 16.0),
+        ),
+        height: (48.0 * scale).clamp(38.0, 52.0),
+        borderRadius: (30.0 * scale).clamp(20.0, 40.0),
+      ),
+    ),
+  ],
 ),
-
-                        SizedBox(width: 14.0 * scale),
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () {
-                              // non-functional for now
-                            },
-                             icon: Icon(
-                              Icons.receipt,
-                              size: (18.0 * scale).clamp(14.0, 20.0),
-                              color: const Color(0xFF0D47A1),
-                            ),
-                            label: Text(
-                              'View Details',
-                              style: theme.textTheme.labelLarge?.copyWith(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w600,
-                                fontSize: (14.0 * scale).clamp(12.0, 16.0),
-                              ),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: (14.0 * scale).clamp(10.0, 18.0)),
-                              side: const BorderSide(color: Color(0xFF0D47A1), width: 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular((30.0 * scale).clamp(20.0, 40.0)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
 
                     SizedBox(height: 28.0 * scale),
                   ],

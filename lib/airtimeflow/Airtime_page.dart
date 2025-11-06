@@ -1,10 +1,11 @@
 // lib/airtime_flow/airtime_page.dart
 
-// ignore_for_file: deprecated_member_use, use_build_context_synchronously, file_names
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously, file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:next/airtimeflow/airtime_success_page.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 const Color _kAccentBlue = Color(0xFF0D47A1);
 
@@ -74,13 +75,11 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               ),
             ),
             Center(
-              child: Text(
-                "₦ ${amount.toStringAsFixed(2)}",
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+              child: CustomTitleText(
+                title:"₦ ${amount.toStringAsFixed(2)}" ,
+                 fontSize: 22,
+                 fontWeight: FontWeight.bold,
                 ),
-              ),
             ),
             const SizedBox(height: 10),
             Padding(
@@ -99,11 +98,12 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
             ),
           ),
           const SizedBox(width: 6),
-          const Text(
-            "Airtime",
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
-        ],
+          const CustomTitleText(
+            title:"Airtime" ,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          )
+         ],
       ),
     ],
   ),
@@ -120,7 +120,10 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               ],
             ),
             const SizedBox(height: 20),
-            const Text("Payment Method", style: TextStyle(fontWeight: FontWeight.w600)),
+            const CustomTitleText(
+              title: "Payment Method",
+              fontWeight: FontWeight.w600,
+          ),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(12),
@@ -132,8 +135,10 @@ void _showAirtimeConfirmation(BuildContext context, double amount, String phoneN
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Available Balance (₦56,000.00)",
-                      style: TextStyle(fontSize: 14, color: Colors.black87)),
+                  CustomTitleText(
+            title:"Available Balance (₦56,000.00)" ,
+            fontSize: 14,
+          ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,23 +225,24 @@ void dispose() {
           ),
         ),
         ),
-        title: const Text(
-          'Airtime',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: const CustomTitleText(
+        title: 'Airtime',
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+      ),
+
         centerTitle: true,
         actions: [
           TextButton(
             onPressed: () {
               // Navigate to history 
             },
-            child: const Text(
-              'History',
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: const CustomTitleText(
+            title: 'History',
+            color: Colors.green,
+            fontWeight: FontWeight.w600,
+            fontSize: 15,
+          )
           ),
         ],
       ),
@@ -298,14 +304,11 @@ void dispose() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Get up to ₦100 Cashback',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
-                        color: Colors.black,
-                      ),
-                    ),
+                    const CustomTitleText(
+            title: 'Get up to ₦100 Cashback',
+             fontWeight: FontWeight.w700,
+             fontSize: 15,
+          ),
                     const SizedBox(height: 6),
                     const Text(
                       'Top up ₦1,000 for betting and get up                                       to ₦100 cash back',
@@ -351,14 +354,12 @@ Padding(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'For',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.black87,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+             const CustomTitleText(
+            title: 'For',
+            fontSize: 15,
+            color: Colors.black87,
+             fontWeight: FontWeight.w700,
+          ),
             const SizedBox(height: 8),
             Row(
   children: [
@@ -464,14 +465,12 @@ Padding(
       const SizedBox(height: 20),
 
       // --- Top Up Section ---
-      const Text(
-        'Top up',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-          color: Colors.black87,
-        ),
-      ),
+       const CustomTitleText(
+            title: 'Top up',
+            fontSize: 15,
+            color: Colors.black87,
+             fontWeight: FontWeight.w700,
+          ),
       const SizedBox(height: 8),
 
       // --- Amount Grid with animation ---
@@ -525,14 +524,12 @@ Padding(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          '₦2% Cashback',
-                          style: TextStyle(
+                         const CustomTitleText(
+                          title: '₦2% Cashback',
+                           fontSize: 11,
                             color: Color(0xFF0B63D6),
-                            fontSize: 11,
                             fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                         ),
                         const SizedBox(height: 4),
                         Text(
                           '₦$amount',
@@ -567,10 +564,7 @@ Padding(
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            '₦',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          ),
+          const CustomTitleText(title: '₦',fontSize: 16, fontWeight: FontWeight.w600),
           const SizedBox(width: 6),
          Expanded(
   child: TextField(
@@ -639,11 +633,7 @@ ElevatedButton(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Airtime service',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                    ),
+                    const CustomTitleText(title: 'Airtime service',fontWeight: FontWeight.w700, fontSize: 16), 
                     const SizedBox(height: 8),
                     Container(
                       padding: const EdgeInsets.all(12),
@@ -660,12 +650,8 @@ ElevatedButton(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('USSD enquiry',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600)),
-                                Text('Check phone balance and more',
-                                    style: TextStyle(
-                                        fontSize: 13, color: Colors.grey)),
+                                 CustomTitleText(title:'USSD enquiry',fontWeight: FontWeight.w600,fontSize: 16,),
+                                 CustomTitleText(title: 'Check phone balance and more',fontSize: 13, color: Colors.grey),
                               ],
                             ),
                           ),
@@ -674,11 +660,7 @@ ElevatedButton(
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'More events',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
+                    CustomTitleText(title: 'More events',fontWeight: FontWeight.bold, fontSize: 16),
                     const SizedBox(height: 10),
                     _promoItem(
                       imageUrl: 'assets/images/promo1.png',
@@ -879,13 +861,9 @@ Future<void> _showEnterPinPopup(BuildContext context) async {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Enter Payment PIN',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 6),
-                const Text('Confirm your transaction',
-                    style: TextStyle(fontSize: 13, color: Colors.grey)),
+                CustomTitleText(title: 'Enter Payment PIN',fontSize: 17, fontWeight: FontWeight.w600),
+                 const SizedBox(height: 6),
+                CustomTitleText(title:'Confirm your transaction',fontSize: 13, color: Colors.grey),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -894,17 +872,13 @@ Future<void> _showEnterPinPopup(BuildContext context) async {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {},
-                  child: const Text(
-                    'Forgot Payment PIN?',
-                    style: TextStyle(color: Color(0xFF0D47A1), fontSize: 13),
-                  ),
+                  child: CustomTitleText(title: 'Forgot Payment PIN?',color: Color(0xFF0D47A1), fontSize: 13),
                 ),
                 const SizedBox(height: 22),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Use Face ID next time',
-                        style: TextStyle(fontSize: 13)),
+                    CustomTitleText(title: 'Use Face ID next time',fontSize: 13),
                     Switch(
                       value: useFaceId,
                       onChanged: (v) => setModalState(() => useFaceId = v),

@@ -6,7 +6,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next/eletricityflow/Electricitysuccesspage.dart';
-import 'package:next/main%20pages/dashboard_page.dart'; // adjust if your path differs
+import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart'; // adjust if your path differs
 
 class ElectricityPage extends StatefulWidget {
   const ElectricityPage({Key? key}) : super(key: key);
@@ -1025,27 +1026,27 @@ Widget _enterAmountField() {
               ]),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // close sheet
-                  if (hasEnough) {
-                    _showPinEntry(amount);
-                  } else {
-                    _showInsufficient();
-                  }
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0D47A1), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
-                child: const Text('Confirm',
-                 style: TextStyle(
-                  fontSize: 16,
-                   fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                   )),
-              ),
-            ),
+            CustomButton(
+  text: 'Confirm',
+  onPressed: () {
+    Navigator.pop(context); // close sheet
+    if (hasEnough) {
+      _showPinEntry(amount);
+    } else {
+      _showInsufficient();
+    }
+  },
+  width: double.infinity,
+  height: 50,
+  color: const Color(0xFF0D47A1),
+  borderRadius: 30,
+  textStyle: const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  ),
+),
+
             const SizedBox(height: 10),
           ]),
         );

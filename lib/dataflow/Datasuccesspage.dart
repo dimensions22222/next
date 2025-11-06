@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 
@@ -281,9 +282,13 @@ class _DataSuccesspageState extends State<DataSuccesspage> {
                     Row(
                       children: [
                         Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () async {
-  final message = '''
+                          child: CustomButton(
+  text: 'Share Receipt',
+  isOutlined: true,
+  color: const Color(0xFF0D47A1),
+  icon: const Icon(Icons.share_outlined, color: Color(0xFF0D47A1), size: 20),
+  onPressed: () async {
+    final message = '''
 📱 *Data Purchase Receipt*
 -------------------------
 Provider: ${widget.provider.toUpperCase()} - NIGERIA
@@ -294,62 +299,23 @@ Date: ${DateTime.now().toLocal().toString().split('.')[0]}
 
 Thank you for using our service!
 ''';
+    await Share.share(message, subject: 'Data Purchase Receipt');
+  },
+),
 
-  await Share.share(
-    message,
-    subject: 'Data Purchase Receipt',
-  );
-},
-
-                            icon: Icon(
-                              Icons.share_outlined,
-                              size: (18.0 * scale).clamp(14.0, 20.0),
-                              color: const Color(0xFF0D47A1),
-                            ),
-                            label: Text(
-                              'Share Receipt',
-                              style: theme.textTheme.labelLarge?.copyWith(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w500,
-                                fontSize: (14.0 * scale).clamp(12.0, 16.0),
-                              ),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: (14.0 * scale).clamp(10.0, 18.0)),
-                              side: const BorderSide(color: Color(0xFF0D47A1), width: 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular((30.0 * scale).clamp(20.0, 40.0)),
-                              ),
-                            ),
-                          ),
                         ),
                         SizedBox(width: 14.0 * scale),
                         Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () {
-                              // non-functional for now
-                            },
-                             icon: Icon(
-                              Icons.receipt,
-                              size: (18.0 * scale).clamp(14.0, 20.0),
-                              color: const Color(0xFF0D47A1),
-                            ),
-                            label: Text(
-                              'View Details',
-                              style: theme.textTheme.labelLarge?.copyWith(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w600,
-                                fontSize: (14.0 * scale).clamp(12.0, 16.0),
-                              ),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: (14.0 * scale).clamp(10.0, 18.0)),
-                              side: const BorderSide(color: Color(0xFF0D47A1), width: 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular((30.0 * scale).clamp(20.0, 40.0)),
-                              ),
-                            ),
-                          ),
+                          child: CustomButton(
+  text: 'View Details',
+  isOutlined: true,
+  color: const Color(0xFF0D47A1),
+  icon: const Icon(Icons.receipt, color: Color(0xFF0D47A1), size: 20),
+  onPressed: () {
+    // Add your detail logic here
+  },
+),
+
                         ),
                       ],
                     ),
@@ -410,28 +376,19 @@ Thank you for using our service!
               ],
             ),
           ),
-          ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: _accentBlue,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: (18),
-              vertical: (10)
-            ),
-            elevation: 0,
-          ),
-          child: Text(
-            'Go',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: (14.0 * scale).clamp(12.0, 16.0),
-            ),
-          ),
-        ),
+         CustomButton(
+  text: 'Go',
+  onPressed: () {},
+  width: 80,
+  height: 38,
+  borderRadius: 50,
+  color: _accentBlue,
+  textStyle: TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: (14.0 * scale).clamp(12.0, 16.0),
+  ),
+),
 
         ],
       ),

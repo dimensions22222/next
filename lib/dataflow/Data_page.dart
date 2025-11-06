@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // reuse existing success page
 import 'package:next/dataflow/Datasuccesspage.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 const Color _kAccentBlue = Color(0xFF0D47A1);
 
@@ -287,25 +288,25 @@ int _gridCountForWidth(double width) {
 
                 const SizedBox(height: 40),
                 SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      await _showEnterPinPopup(context, amount.toString());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _kAccentBlue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    child: const Text(
-                      'Confirm',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                  ),
-                ),
+  width: double.infinity,
+  child: CustomButton(
+    text: 'Confirm',
+    color: _kAccentBlue,
+    textColor: Colors.white,
+    height: 48,
+    borderRadius: 100,
+    textStyle: const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    onPressed: () async {
+      Navigator.pop(context);
+      await _showEnterPinPopup(context, amount.toString());
+    },
+  ),
+),
+
               ],
             ),
           ),

@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:next/main%20pages/pin_code_page.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 
 class VerifyPhoneNumber extends StatefulWidget {
   const VerifyPhoneNumber({Key? key}) : super(key: key);
@@ -118,29 +121,12 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
              
               const SizedBox(height: 10),
               // Title
-              const Text(
-                "Verify Phone Number",
-                style: TextStyle(
-                  fontSize: 20,
-                   fontWeight: FontWeight.bold),
-              ),
+              CustomTitleText(title: "Verify Phone Number",fontSize: 20,fontWeight: FontWeight.bold),
               const SizedBox(height: 10),
-
               Row(
                 children: [
-                  Text(
-                    "Verification code sent to ",
-                    style: TextStyle(
-                      fontSize: 14,
-                       color: Colors.grey[600]),
-                  ),
-
-                   const Text(
-                    "08133228899",
-                    style: TextStyle(
-                      fontSize: 14,
-                       color: Colors.black54,),
-                  ),
+                  CustomTitleText(title: "Verification code sent to ",fontSize: 14,color: Colors.grey[600]),
+                  CustomTitleText(title:"08133228899",fontSize: 14,color: Colors.black54,),
                 ],
               ),
               const SizedBox(height: 40),
@@ -162,20 +148,13 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
 
               Row(
                 children: [
-                  Text(
-                "Resend code in",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500),
-              ),
+                  CustomTitleText(
+                    title: "Resend code in",
+                    fontSize: 14,color: Colors.grey[600],fontWeight: FontWeight.w500,
+                  ),
               const SizedBox(width: 6),
-              Text(
-                "0:${_secondsRemaining.toString().padLeft(2, '0')}s",
-                style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w500),
+              CustomTitleText(title: "0:${_secondsRemaining.toString().padLeft(2, '0')}s",
+              fontSize: 14,color: Colors.blue,fontWeight: FontWeight.w500
               ),
                 ],
               ), // Resend timer
@@ -188,9 +167,8 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
                 children: [
                   Icon(Icons.lock, size: 18, color: Colors.blue),
                   SizedBox(width: 6),
-                  Text("Secured and encrypted",
-                      style: TextStyle(fontSize: 14, color: Colors.grey)),
-                ],
+                  CustomTitleText(title:"Secured and encrypted",fontSize: 14, color: Colors.grey),
+                  ],
               ),
               const SizedBox(height: 20),
             ],

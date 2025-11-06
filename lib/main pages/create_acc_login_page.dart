@@ -1,8 +1,10 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Import this for input formatters
+import 'package:flutter/services.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart'; // Import your custom button
 
 class CreateAccountLoginPage extends StatefulWidget {
   const CreateAccountLoginPage({super.key});
@@ -24,33 +26,17 @@ class _CreateAccountLoginPageState extends State<CreateAccountLoginPage> {
           children: [
             const SizedBox(height: 80),
             const Center(
-              child: Text(
-                'TRIGON',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0D47A1),
-                  letterSpacing: 2,
-                ),
-              ),
+              child:CustomTitleText(title: 'TRIGON',
+              fontSize: 24,fontWeight: FontWeight.bold,color: Color(0xFF0D47A1),),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'Get Started on Trigon',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-              ),
+            CustomTitleText(title:'Get Started on Trigon',
+            fontSize: 18,fontWeight: FontWeight.w800,
             ),
             const SizedBox(height: 24),
 
             // Phone label
-            const Text(
-              'Phone',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
+            CustomTitleText(title:'Phone',fontSize: 14,fontWeight: FontWeight.w500,
             ),
             const SizedBox(height: 8),
 
@@ -58,7 +44,7 @@ class _CreateAccountLoginPageState extends State<CreateAccountLoginPage> {
             TextField(
               keyboardType: TextInputType.phone,
               inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly, // Only numbers allowed
+                FilteringTextInputFormatter.digitsOnly,
               ],
               onChanged: (value) {
                 setState(() {
@@ -86,49 +72,26 @@ class _CreateAccountLoginPageState extends State<CreateAccountLoginPage> {
 
             const SizedBox(height: 24),
 
-            // Create Account button
-            SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed: (_phoneNumber.length >= 11)
-        ? () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DashboardPage(),
+            // Use the CustomButton widget
+            Center(
+              child: CustomButton(
+                text: 'Create Account',
+                enabled: _phoneNumber.length >= 11,
+                color: const Color(0xFF0D47A1),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashboardPage(),
+                    ),
+                  );
+                },
+                borderRadius: 100,
+                width: double.infinity,
+                height: 55,
+                elevation: 3,
               ),
-            );
-          }
-        : null,
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.resolveWith<Color>(
-        (Set<WidgetState> states) {
-          if (states.contains(WidgetState.disabled)) {
-            return const Color.fromARGB(255, 13, 71, 161).withOpacity(0.3);
-          }
-          return const Color(0xFF0D47A1);
-        },
-      ),
-      padding: WidgetStateProperty.all(
-        const EdgeInsets.symmetric(vertical: 16),
-      ),
-      shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
-        ),
-      ),
-    ),
-    child: const Text(
-      'Create Account',
-      style: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
-    ),
-  ),
-),
-
+            ),
           ],
         ),
       ),

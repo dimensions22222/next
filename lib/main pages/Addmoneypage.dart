@@ -1,7 +1,9 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
+import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AddMoneyPage extends StatelessWidget {
@@ -64,20 +66,12 @@ class AddMoneyPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Bank Transfer',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
+                          CustomTitleText(title: 'Bank Transfer',
+                          fontWeight: FontWeight.w600,fontSize: 16,
                           ),
-                          SizedBox(height: 2),
-                          Text(
-                            'Add money via mobile or internet banking',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 13,
-                            ),
+                           SizedBox(height: 2),
+                          CustomTitleText(title: 'Add money via mobile or internet banking',
+                          color: Colors.grey,fontSize: 13,
                           ),
                         ],
                       ),
@@ -91,12 +85,8 @@ class AddMoneyPage extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Account Number
-            const Text(
-              'Tesa Account Number',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
+            CustomTitleText(title: 'Trigon Account Number',
+            color: Colors.grey,fontSize: 14,
             ),
             const SizedBox(height: 8),
             Text(
@@ -114,7 +104,16 @@ class AddMoneyPage extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
+                  child: CustomButton(
+                    text: 'Copy Number',
+                    isOutlined: true,
+                    height: 50,
+                    borderRadius: 100,
+                    textStyle: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF0D47A1),
+                    ),
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: accountNumber));
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -124,35 +123,23 @@ class AddMoneyPage extends StatelessWidget {
                         ),
                       );
                     },
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    child: const Text(
-                      'Copy Number',
-                      style: TextStyle(fontSize: 15),
-                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
+                  child: CustomButton(
+                    text: 'Share Details',
+                    color: const Color(0xFF0D47A1),
+                    height: 50,
+                    borderRadius: 100,
+                    textStyle: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                     onPressed: () {
-                      Share.share('Tesa Account Number: $accountNumber');
+                      Share.share('Trigon Account Number: $accountNumber');
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0D47A1),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    child: const Text(
-                      'Share Details',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
                   ),
                 ),
               ],
@@ -169,19 +156,16 @@ class AddMoneyPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Add money to your Tesa account in 3 easy steps:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        height: 1.4,
-                      ),
+                    CustomTitleText(title: 'Add money to your Trigon account in 3 easy steps:',
+                    fontSize: 18,fontWeight: FontWeight.w600,textAlign: TextAlign.left,
                     ),
                     SizedBox(height: 12),
-                    Text('1. Copy your account details above -703-420-0118.'),
-                    Text('2. Open the bank app you want to transfer money from.'),
-                    Text('3. Transfer the desired amount to your Texa Account.'),
-                   ],
+                    Text('1. Copy your account details above - 703-450-0388.'),
+                    Text(
+                        '2. Open the bank app you want to transfer money from.'),
+                    Text(
+                        '3. Transfer the desired amount to your Trigon Account.'),
+                  ],
                 ),
               ),
             ),

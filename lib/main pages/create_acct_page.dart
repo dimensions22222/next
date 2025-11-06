@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next/main%20pages/acct_Otp_verify_page%20.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 
@@ -44,25 +47,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             const SizedBox(height: 20),
 
             // Title
-            const Text(
-            'Create an account',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
-            ),
-            ),
+            CustomTitleText(title: 'Create an account',
+             fontSize: 24,fontWeight: FontWeight.w700,),
             const SizedBox(height: 32),
 
             // Label
-            const Text(
-            'Phone',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-            ),
+            CustomTitleText(title:'Phone',
+            fontSize: 14,fontWeight: FontWeight.w600,),
             const SizedBox(height: 8),
 
             // Input Row
@@ -87,14 +78,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                   ),
                 ),
-                Text(
-                  '+234',
-                  style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                  ),
-                ),
+                CustomTitleText(title:'+234',
+                fontSize: 16,fontWeight: FontWeight.w500,),
                 Icon(Icons.keyboard_arrow_down, color: Colors.black54),
                 ],
               ),
@@ -149,15 +134,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             const SizedBox(height: 8),
 
             // Helper text
-            const Text(
-            'Verification code will be sent to this number',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF6C6C6C),
-            ),
-            ),
-
+            CustomTitleText(title:'Verification code will be sent to this number',
+            fontSize: 13,fontWeight: FontWeight.w400,color: Color(0xFF6C6C6C),),
             const SizedBox(height: 32),
 
             // Continue button
