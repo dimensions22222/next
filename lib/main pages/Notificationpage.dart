@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:next/Models/NotificationModell.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -70,10 +71,8 @@ class _NotificationPageState extends State<NotificationPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text(
-          'Notification deleted',
-          style: TextStyle(fontSize: 15),
-        ),
+        content: const CustomTitleText(title: 'Notification delete',
+        fontSize: 15),
         behavior: SnackBarBehavior.floating,
         action: SnackBarAction(
           label: 'Undo',
@@ -101,14 +100,8 @@ class _NotificationPageState extends State<NotificationPage> {
           icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black87, size: 24),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          'Notification',
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-          ),
-        ),
+        title: const CustomTitleText(title:'Notification',
+        color: Colors.black87,fontWeight: FontWeight.w700,fontSize: 20,),
         centerTitle: true,
       ),
       body: Column(
@@ -123,14 +116,8 @@ class _NotificationPageState extends State<NotificationPage> {
               children: [
                 const Icon(Icons.circle, color: Colors.red, size: 12),
                 const SizedBox(width: 10),
-                Text(
-                  'You have $unreadCount unread notification${unreadCount == 1 ? '' : 's'}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
-                  ),
-                ),
+                CustomTitleText(title:'You have $unreadCount unread notification${unreadCount == 1 ? '' : 's'}',
+                fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black87,),
               ],
             ),
           ),
@@ -138,14 +125,8 @@ class _NotificationPageState extends State<NotificationPage> {
           // Section label
           const Padding(
             padding: EdgeInsets.fromLTRB(20, 16, 0, 8),
-            child: Text(
-              'Yesterday',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child:CustomTitleText(title:'Yesterday',
+            color: Colors.black87,fontSize: 16,fontWeight: FontWeight.w600,),
           ),
 
           // List of notifications
@@ -265,31 +246,14 @@ class _NotificationTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87,
-                      fontSize: 16,
-                    ),
-                  ),
+                  CustomTitleText(title:title,
+                  fontWeight: FontWeight.w700,color: Colors.black87,fontSize: 16,),
                   const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14.5,
-                      height: 1.3,
-                    ),
-                  ),
+                  CustomTitleText(title:subtitle,
+                  color: Colors.black54,fontSize: 14.5,),
                   const SizedBox(height: 4),
-                  Text(
-                    time,
-                    style: const TextStyle(
-                      color: Colors.black45,
-                      fontSize: 13,
-                    ),
-                  ),
+                  CustomTitleText(title:time,
+                  color: Colors.black45,fontSize: 13,),
                 ],
               ),
             ),

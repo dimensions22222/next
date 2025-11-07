@@ -27,7 +27,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
   void initState() {
     super.initState();
 
-    // ✅ Add listeners for all text fields to auto-update button state
+    //Add listeners for all text fields to auto-update button state
     for (final c in [..._pinControllers, ..._confirmControllers]) {
       c.addListener(_updateButtonState);
     }
@@ -45,7 +45,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
     super.dispose();
   }
 
-  /// ✅ Update button enable state based on both PIN entries
+  ///Update button enable state based on both PIN entries
   void _updateButtonState() {
     final pin = _pinControllers.map((c) => c.text).join();
     final confirm = _confirmControllers.map((c) => c.text).join();
@@ -58,7 +58,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
     }
   }
 
-  /// ✅ Handle text field behavior (move focus next/prev)
+  ///Handle text field behavior (move focus next/prev)
   void _onCharChanged(int index, List<TextEditingController> controllers,
       List<FocusNode> focusNodes, String value) {
     if (value.length > 1) {
@@ -75,7 +75,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
     }
   }
 
-  /// ✅ Build a single PIN row
+  ///Build a single PIN row
   Widget _buildPinRow(
       List<TextEditingController> controllers, List<FocusNode> focusNodes) {
     return Row(

@@ -1,9 +1,10 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:next/main%20pages/create_acc_login_page.dart';
 import 'package:next/main%20pages/create_acct_page.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart' show CustomTitleText;
 import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -36,7 +37,8 @@ class LoginScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text(
+                      child: 
+                      Text(
                         't',
                         style: TextStyle(
                           fontSize: width * 0.1,
@@ -71,15 +73,8 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: height * 0.02),
 
               // Welcome Text
-              Text(
-                "Welcome back Taiwo",
-                style: TextStyle(
-                  fontSize: width * 0.045,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
-              ),
-
+              CustomTitleText(title:"Welcome back Taiwo",
+              fontSize: width * 0.045,fontWeight: FontWeight.w400,color: Colors.black87,),
               SizedBox(height: height * 0.20),
 
               // Center Face ID Icon
@@ -103,14 +98,8 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: height * 0.015),
-                    Text(
-                      "Tap icon above to Login",
-                      style: TextStyle(
-                        fontSize: width * 0.035,
-                        color: Colors.grey.shade700,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+                    CustomTitleText(title:"Tap icon above to Login",
+                    fontSize: width * 0.035,color: Colors.grey.shade700,fontWeight: FontWeight.w400,),
                   ],
                 ),
               ),
@@ -144,13 +133,9 @@ class LoginScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Don’t have an account? ",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: width * 0.035,
-                        ),
-                      ),
+                      CustomTitleText(title: "Don’t have an account? ",
+                      color: Colors.grey,fontSize: width * 0.035,),
+                      
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -160,14 +145,9 @@ class LoginScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Text(
-                          "Sign up",
-                          style: TextStyle(
-                            color: const Color(0xFF0D47A1),
-                            fontSize: width * 0.035,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        child:
+                        CustomTitleText(title:"Sign up",
+                        color: const Color(0xFF0D47A1),fontSize: width * 0.035,fontWeight: FontWeight.w500,),
                       ),
                     ],
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:next/main%20pages/cashback_page.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 
 
 void main() {
@@ -56,14 +57,10 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: Color(0xFF0D47A1), 
       // const Color.fromARGB(255, 13, 71, 161).withOpacity(0.5),
       body: Center(
-        child: Text(
-          'TRIGON',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 34,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 2.5, 
-          ),
+        child: CustomTitleText(
+          title:'TRIGON',
+          color: Colors.white,
+          fontSize: 34,fontWeight: FontWeight.w700,letterSpacing: 2.5, 
         ),
       ),
     );

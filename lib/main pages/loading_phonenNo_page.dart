@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:next/main%20pages/success_screen.dart';
+import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 
 class LoadingAcctPage extends StatefulWidget {
   const LoadingAcctPage({super.key});
@@ -42,12 +43,9 @@ class _LoadingAcctPageState extends State<LoadingAcctPage> {
                 valueColor: AlwaysStoppedAnimation<Color>( Color(0xFF0D47A1),),
               ),
             SizedBox(height: 16),
-            Text(
-              'Creating your account...',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-              ),
+            CustomTitleText(
+              title:'Creating your account...', 
+               color: Colors.black87,fontSize: 16,
             ),
           ],
         ),
