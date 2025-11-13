@@ -5,7 +5,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:next/eletricityflow/Electricitysuccesspage.dart';
+import 'package:next/Features/eletricityflow/Electricitysuccesspage.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
 import 'package:next/main%20pages/utils/widgets/custom_button.dart'; // adjust if your path differs
 

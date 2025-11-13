@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:next/ContactUs/ElectricityTransactionSelectPage.dart';
+import 'package:next/Features/ContactUs/ElectricityTransactionSelectPage.dart';
 
 
 class ElectricityIssueTypePage extends StatefulWidget {
@@ -43,7 +43,10 @@ class _ElectricityIssueTypePageState extends State<ElectricityIssueTypePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const _StepIndicator(step: "Step 2 of 3"),
+            const Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: _StepIndicator(step: "Step 2 of 3"),
+            ),
             const SizedBox(height: 20),
             const Text(
               "Select Issue Type",

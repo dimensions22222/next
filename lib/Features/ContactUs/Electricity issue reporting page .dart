@@ -1,7 +1,8 @@
 // ignore_for_file: deprecated_member_use, prefer_const_constructors, file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:next/ContactUs/disputepage.dart';
+import 'package:next/Features/ContactUs/disputepage.dart';
+
 class ElectricityIssueReportPage extends StatefulWidget {
   const ElectricityIssueReportPage({Key? key}) : super(key: key);
 
@@ -21,14 +22,13 @@ class _ElectricityIssueReportPageState
     'Other'
   ];
 
-  // Example transaction data (adapt to your model)
   final _summary = {
     "product": "Electricity",
     "meter": "12342344004",
-    "account": "HABEEB ILIAS",
+    "account": "TAIWO AYOOMODARA",
     "amount": "₦1,000.00",
     "date": "August 13th, 2025 04:14:24",
-    "logo": null // if you have an asset path, put it here
+    "logo": null
   };
 
   bool _submitting = false;
@@ -40,37 +40,36 @@ class _ElectricityIssueReportPageState
   }
 
   void _submitIssue() {
-  if (_selectedIssue == null || _selectedIssue!.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please select an issue type.')),
-    );
-    return;
-  }
+    if (_selectedIssue == null || _selectedIssue!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select an issue type.')),
+      );
+      return;
+    }
 
-  // simulate loading
-  setState(() => _submitting = true);
+    setState(() => _submitting = true);
 
-  Future.delayed(const Duration(milliseconds: 700), () {
-    setState(() => _submitting = false);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ElectricityDisputeDetailsPage(
-          isSuccessful: false, // or true, depending on backend result
+    Future.delayed(const Duration(milliseconds: 700), () {
+      setState(() => _submitting = false);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ElectricityDisputeDetailsPage(
+            // isSuccessful: false,
+            isSuccessful:true,
+          ),
         ),
-      ),
-    );
-  });
-}
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // responsive padding based on width
     final w = MediaQuery.of(context).size.width;
     final horizontal = (w > 500) ? w * 0.08 : w * 0.06;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+       backgroundColor:const Color.fromARGB(247, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -85,12 +84,10 @@ class _ElectricityIssueReportPageState
         ),
       ),
       body: Padding(
-        padding:
-            EdgeInsets.only(left: horizontal, right: horizontal, top: 16),
+        padding: EdgeInsets.only(left: horizontal, right: horizontal, top: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Step pill
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
@@ -141,11 +138,9 @@ class _ElectricityIssueReportPageState
                 children: [
                   Row(
                     children: [
-                      // product name + logo
                       Expanded(
                         child: Row(
                           children: [
-                            // placeholder logo circle
                             CircleAvatar(
                               radius: 18,
                               backgroundColor: Colors.grey.shade100,
@@ -162,7 +157,6 @@ class _ElectricityIssueReportPageState
                           ],
                         ),
                       ),
-                      // amount
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -182,7 +176,6 @@ class _ElectricityIssueReportPageState
                     ],
                   ),
                   SizedBox(height: 12),
-                  // grid-like details
                   Row(
                     children: [
                       Expanded(
@@ -196,13 +189,10 @@ class _ElectricityIssueReportPageState
                         ),
                       ),
                       SizedBox(width: 8),
-                      // right column can be used for anything else or left empty to match design
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            // placeholder for additional field
-                          ],
+                          children: const [],
                         ),
                       )
                     ],
@@ -215,29 +205,61 @@ class _ElectricityIssueReportPageState
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
             SizedBox(height: 8),
 
-            // Issue type dropdown similar style to design
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue.shade700, width: 0.8),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: _selectedIssue,
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  hint: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text(
-                        'My account was debited but token was not generated',
-                        style: TextStyle(fontSize: 13)),
+            // ✨ Redesigned dropdown section ✨
+            Material(
+              elevation: 0,
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: _selectedIssue == null
+                          ? Colors.blueGrey.shade100
+                          : Colors.blue.shade700.withOpacity(0.6),
+                      width: 1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    borderRadius: BorderRadius.circular(12),
+                    dropdownColor: Colors.white,
+                    value: _selectedIssue,
+                    icon: Icon(Icons.expand_more, color: Colors.blue.shade800),
+                    hint: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Text(
+                        'Select an issue type',
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    isExpanded: true,
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w600),
+                    items: _issueOptions
+                        .map((s) => DropdownMenuItem(
+                              value: s,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 4),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.bolt,
+                                        size: 16, color: Colors.blue.shade700),
+                                    SizedBox(width: 10),
+                                    Flexible(child: Text(s, maxLines: 2)),
+                                  ],
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (v) => setState(() => _selectedIssue = v),
                   ),
-                  isExpanded: true,
-                  items: _issueOptions
-                      .map((s) =>
-                          DropdownMenuItem(value: s, child: Text(s, maxLines: 2)))
-                      .toList(),
-                  onChanged: (v) => setState(() => _selectedIssue = v),
                 ),
               ),
             ),
@@ -245,13 +267,11 @@ class _ElectricityIssueReportPageState
             SizedBox(height: 12),
             Text('Description', style: TextStyle(fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-
-            // description box
             Container(
               height: 110,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey.shade300),
+                border: Border.all(color: Colors.black,width: 1.1),
               ),
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
@@ -268,7 +288,6 @@ class _ElectricityIssueReportPageState
 
             Spacer(),
 
-            // Submit button matching design
             SafeArea(
               top: false,
               child: SizedBox(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:next/Models/NotificationModell.dart';
+import 'package:next/Features/Models/NotificationModell.dart';
 import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 
 class NotificationPage extends StatefulWidget {

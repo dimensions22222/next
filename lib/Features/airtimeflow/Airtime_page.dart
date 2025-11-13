@@ -3,7 +3,7 @@
 // ignore_for_file: deprecated_member_use, use_build_context_synchronously, file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:next/airtimeflow/airtime_success_page.dart';
+import 'package:next/Features/airtimeflow/airtime_success_page.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
 import 'package:next/main%20pages/utils/widgets/Custom_Title.dart';
 import 'package:next/main%20pages/utils/widgets/custom_button.dart';

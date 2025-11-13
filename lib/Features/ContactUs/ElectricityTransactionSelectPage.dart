@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:next/ContactUs/Electricity%20issue%20reporting%20page%20.dart';
+import 'package:next/Features/ContactUs/Electricity%20issue%20reporting%20page%20.dart';
 
 class ElectricityTransactionSelectPage extends StatefulWidget {
   const ElectricityTransactionSelectPage({Key? key}) : super(key: key);

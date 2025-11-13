@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:next/ContactUs/SubmitIssuepage.dart';
+import 'package:next/Features/ContactUs/SubmitIssuepage.dart';
 import 'package:next/customWidget/profile_image_store.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:next/ContactUs/ElectricityIssueTypePage.dart';
+import 'package:next/Features/ContactUs/ElectricityIssueTypePage.dart';
 
 
 class SelectCategoryPage extends StatefulWidget {

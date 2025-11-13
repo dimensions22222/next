@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:next/ContactUs/SelectCategoryPage.dart';
+import 'package:next/Features/ContactUs/SelectCategoryPage.dart';
 
 class Submitissuepage extends StatelessWidget {
   const Submitissuepage({Key? key}) : super(key: key);
@@ -38,12 +38,10 @@ class Submitissuepage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Custom icon section
-              SizedBox(
-                height: isSmallScreen ? 80 : 100,
-                width: isSmallScreen ? 80 : 100,
-                child: const Center(child: Icon(Icons.group_add_outlined, color: Color(0xFF0D47A1),  size: 100,)),
-              ),
-              const SizedBox(height: 24),
+              Image.asset('assets/icons/subissue.png',
+              height: isSmallScreen ? 80 : 100,
+                width: isSmallScreen ? 80 : 100,),
+               const SizedBox(height: 24),
 
               // Description text
               Text(
