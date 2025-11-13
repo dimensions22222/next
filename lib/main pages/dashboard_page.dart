@@ -1,8 +1,9 @@
-// ignore_for_file: unused_field, deprecated_member_use, use_build_context_synchronously
+// ignore_for_file: unused_field, deprecated_member_use, use_build_context_synchronously, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:next/Features/transactions/transact_history_page.dart';
+import 'package:next/Features/transactions/transaction_history_page.dart';
 import 'package:next/TV%20sub%20flow/tvsub_page.dart';
 import 'package:next/Features/airtimeflow/Airtime_page.dart';
 import 'package:next/Features/bottomNAVpages/profile_me.dart';
@@ -495,9 +496,11 @@ class _DashboardPageState extends State<DashboardPage> {
                             onTap: () {
                           Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TransactHistoryPage()),
+                          MaterialPageRoute(builder: (context) =>
+                          //  const TransactHistoryPage()),
+                           const TransactionHistoryPage()),
                           );},
-                            child: const Row(
+                            child:  Row(
                               children: [
                                 Text(
                                   "Transact history",
