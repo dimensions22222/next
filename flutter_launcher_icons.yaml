@@ -1,34 +1,34 @@
-# flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
-  image_path: "assets/icons/midoria.jpg"
+  # Base icon used across all platforms
+  image_path: "assets/icons/trigon.jpg"
 
+  # ANDROID SETTINGS
   android: "launcher_icon"
-  # image_path_android: "assets/icon/icon.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  # adaptive_icon_background: "assets/icon/background.png"
-  # adaptive_icon_foreground: "assets/icon/foreground.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#0D47A1"        # Background color (rounded automatically)
+  adaptive_icon_foreground: "assets/icons/trigon.jpg"  # Foreground (prefer PNG with transparency)
   # adaptive_icon_foreground_inset: 16
   # adaptive_icon_monochrome: "assets/icon/monochrome.png"
 
+  # iOS SETTINGS
   ios: true
-  # image_path_ios: "assets/icon/icon.png"
   remove_alpha_ios: true
-  # image_path_ios_dark_transparent: "assets/icon/icon_dark.png"
-  # image_path_ios_tinted_grayscale: "assets/icon/icon_tinted.png"
-  # desaturate_tinted_to_grayscale_ios: true
-  # background_color_ios: "#ffffff"
+  background_color_ios: "#0D47A1"           # Rounded automatically on iOS
 
+  # WEB SETTINGS
   web:
     generate: true
-    image_path: "assets/icons/midoria.jpg"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
+    # uses top-level image_path
+    background_color: "#0D47A1"
+    theme_color: "#0D47A1"
 
+  # WINDOWS SETTINGS
   windows:
     generate: true
-    image_path: "assets/icons/midoria.jpg"
-    icon_size: 48 # min:48, max:256, default: 48
+    # uses top-level image_path
+    icon_size: 48
 
+  # MACOS SETTINGS
   macos:
     generate: true
-    
+    # uses top-level image_path

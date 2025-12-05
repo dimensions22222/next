@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:next/TV%20sub%20flow/TVsub_successpage.dart';
+import 'package:next/Features/TV%20sub%20flow/TVsub_successpage.dart';
 import 'package:next/main%20pages/dashboard_page.dart';
 import 'package:next/main%20pages/utils/widgets/custom_button.dart';
 

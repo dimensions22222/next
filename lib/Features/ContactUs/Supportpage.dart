@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:next/Features/ContactUs/SubmitIssuepage.dart';
+import 'package:next/Features/ContactUs/chatBot.dart';
 import 'package:next/customWidget/profile_image_store.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -439,7 +440,12 @@ App: Trigon Mobile
         ),
       ),
      floatingActionButton: FloatingActionButton(
-  onPressed: () {},
+  onPressed: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => LiveChatPage()),
+    );
+  },
   backgroundColor: const Color(0xFF0C56A6),
   shape: const CircleBorder(), // ensures it's circular
   child: ClipOval(

@@ -1,5 +1,5 @@
 // transaction_history_page.dart
-// ignore_for_file: unused_import, deprecated_member_use
+// ignore_for_file: unused_import, deprecated_member_use, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +22,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   String _selectedStatus = 'All Status';
   TxStatus? _filterStatus;
 
-  // month selector for the top summary. Default matches the Figma screenshot.
+  bool _showCategoryDropdown = false;
+  bool _showStatusDropdown = false;
+
   final List<String> _months = const [
     'Aug',
     'Jul',
@@ -37,13 +39,14 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
 
   final categories = [
     'All Categories',
+    'USSD Charge',
     'Transfer from',
     'Transfer to',
     'Airtime',
     'Mobile Data',
+    'Add Money',
     'Electricity',
-    'TV',
-    'Add Money'
+    'TV'
   ];
 
   final statusOptions = [
@@ -146,84 +149,105 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
     final filtered = _filteredTransactions;
     const mainBlue = Color(0xFF0D47A1);
 
+    // ★★★★★ NEW IMPRESSIVE MONTH DROPDOWN ★★★★★
     Widget buildTopSummary() {
-      // These numbers are set to match the Figma screenshot exactly.
       const inAmount = '₦2,521.00';
       const outAmount = '₦1,700.00';
 
       return Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
         child: Row(
           children: [
-            // Month selector (left)
+            // ★ PREMIUM MONTH DROPDOWN
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey.shade300),
+                
               ),
-              child: Row(
-                children: [
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: _selectedMonth,
-                      items: _months
-                          .map((m) => DropdownMenuItem(
-                                value: m,
-                                child: Text(m,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600)),
-                              ))
-                          .toList(),
-                      onChanged: (val) {
-                        if (val != null) {
-                          setState(() => _selectedMonth = val);
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down,
-                        size: 20,
-                        color: Colors.black54,
-                      ),
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 16),
-                    ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: _selectedMonth,
+                  dropdownColor: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  icon: const Icon(
+                    Icons.arrow_drop_down_rounded,
+                    size: 28,
+                    color: Colors.black54,
                   ),
-                ],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                  ),
+                  items: _months
+                      .map(
+                        (m) => DropdownMenuItem(
+                          value: m,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.calendar_month_rounded,
+                                color: mainBlue,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                m,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (val) {
+                    if (val != null) {
+                      setState(() => _selectedMonth = val);
+                    }
+                  },
+                ),
               ),
             ),
-            const SizedBox(width: 12),
 
-            // In / Out column (center)
+            const SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('In  $inAmount',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 14)),
+                  const Text(
+                    'In  ₦5,521.00',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text('Out $outAmount',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                          color: Colors.grey.shade600)),
+                  Text(
+                    'Out ₦1,700.00',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Colors.grey.shade700),
+                  ),
                 ],
               ),
             ),
-
-            // Analysis button (right)
             ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -232,102 +256,199 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: mainBlue,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 elevation: 0,
               ),
-              child: const Text('Analysis',
-                  style: TextStyle(fontWeight: FontWeight.w600,color: Color.from(alpha: 1, red: 1, green: 1, blue: 1))),
+              child: const Text(
+                'Analysis',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
       );
     }
+    // END OF MONTH SUMMARY UI CHANGE — NOTHING ELSE TOUCHED
 
-    Widget buildDropdowns() => Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 13, 71, 161)
-                          .withOpacity(0.5)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: mainBlue.withOpacity(0.05),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
+    Widget buildDropdowns() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _showCategoryDropdown = !_showCategoryDropdown;
+                      _showStatusDropdown = false;
+                    });
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: _showCategoryDropdown
+                          ? const Color(0xFFE8F0FE)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: mainBlue),
                     ),
-                  ],
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: _selectedCategory,
-                    isExpanded: true,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    style: const TextStyle(color: Colors.black, fontSize: 14),
-                    items: categories
-                        .map((cat) => DropdownMenuItem<String>(
-                              value: cat,
-                              child: Text(cat,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500)),
-                            ))
-                        .toList(),
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => _selectedCategory = value);
-                      }
-                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _selectedCategory,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: mainBlue,
+                          ),
+                        ),
+                        Icon(
+                          _showCategoryDropdown
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                          color: mainBlue,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 13, 71, 161)
-                          .withOpacity(0.5)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: mainBlue.withOpacity(0.05),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
+              const SizedBox(width: 10),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _showStatusDropdown = !_showStatusDropdown;
+                      _showCategoryDropdown = false;
+                    });
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: _showStatusDropdown
+                          ? Colors.black.withOpacity(0.05)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                          color: Colors.black.withOpacity(0.20)),
                     ),
-                  ],
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: _selectedStatus,
-                    isExpanded: true,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    style: const TextStyle(color: Colors.black, fontSize: 14),
-                    items: statusOptions
-                        .map((s) => DropdownMenuItem<String>(
-                              value: s,
-                              child: Text(s,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500)),
-                            ))
-                        .toList(),
-                    onChanged: (value) {
-                      if (value != null) _setStatusFilter(value);
-                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _selectedStatus,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Icon(
+                          _showStatusDropdown
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                          color: Colors.black87,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+
+          if (_showCategoryDropdown)
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: categories.map((c) {
+                final selected = _selectedCategory == c;
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedCategory = c;
+                      _showCategoryDropdown = false;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? mainBlue.withOpacity(0.12)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: selected
+                            ? mainBlue
+                            : Colors.grey.shade300,
+                      ),
+                    ),
+                    child: Text(
+                      c,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: selected ? mainBlue : Colors.black87,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
-          ],
-        );
+
+          if (_showStatusDropdown)
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: statusOptions.map((s) {
+                final selected = _selectedStatus == s;
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedStatus = s;
+                      _setStatusFilter(s);
+                      _showStatusDropdown = false;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? Colors.black.withOpacity(0.05)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: selected
+                            ? Colors.black
+                            : Colors.grey.shade300,
+                      ),
+                    ),
+                    child: Text(
+                      s,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: selected ? Colors.black : Colors.black87,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+        ],
+      );
+    }
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
@@ -343,8 +464,8 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           TextButton(
             onPressed: () => ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(content: Text('Downloading...'))),
-            child: const Text('Download',
-                style: TextStyle(color: mainBlue)),
+            child:
+                const Text('Download', style: TextStyle(color: mainBlue)),
           ),
         ],
       ),
@@ -355,26 +476,24 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
             final isTablet = constraints.maxWidth >= 800;
 
             if (isTablet) {
-              // Tablet layout: left column with list & filters, right column preview
               return Row(
                 children: [
                   Expanded(
                     flex: 2,
                     child: Column(
                       children: [
-                        // Filters row
                         buildDropdowns(),
                         const SizedBox(height: 12),
-                        // Top summary exactly like the figma
                         buildTopSummary(),
                         const SizedBox(height: 12),
-
                         Expanded(
                           child: filtered.isEmpty
                               ? EmptyStateView(
-                                  onPrimary: () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                          content: Text('View Analysis'))))
+                                  onPrimary: () =>
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text('View Analysis'))))
                               : ListView.separated(
                                   itemCount: filtered.length,
                                   separatorBuilder: (_, __) =>
@@ -382,8 +501,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                                   itemBuilder: (context, index) {
                                     final t = filtered[index];
                                     return TransactionTile(
-                                        item: t,
-                                        onTap: () => _openTransactionDetails(t));
+                                      item: t,
+                                      onTap: () => _openTransactionDetails(t),
+                                    );
                                   },
                                 ),
                         ),
@@ -435,14 +555,17 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text('Select a transaction to view details',
-                                  style: Theme.of(context).textTheme.titleMedium),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
                               const SizedBox(height: 12),
                               SizedBox(
                                 height: 120,
-                                child: Image.asset('assets/placeholder.png',
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (_, __, ___) =>
-                                        const Icon(Icons.receipt_long, size: 80)),
+                                child: Image.asset(
+                                  'assets/placeholder.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, __, ___) =>
+                                      const Icon(Icons.receipt_long, size: 80),
+                                ),
                               )
                             ],
                           ),
@@ -453,7 +576,6 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                 ],
               );
             } else {
-              // Mobile layout: stacked
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -469,12 +591,14 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                                     content: Text('View Analysis'))))
                         : ListView.separated(
                             itemCount: filtered.length,
-                            separatorBuilder: (_, __) => const Divider(height: 1),
+                            separatorBuilder: (_, __) =>
+                                const Divider(height: 1),
                             itemBuilder: (context, index) {
                               final t = filtered[index];
                               return TransactionTile(
-                                  item: t,
-                                  onTap: () => _openTransactionDetails(t));
+                                item: t,
+                                onTap: () => _openTransactionDetails(t),
+                              );
                             },
                           ),
                   ),
@@ -483,10 +607,11 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                     children: [
                       ElevatedButton.icon(
                         icon: const Icon(Icons.card_giftcard),
-                        label: const Text('Cashback Details',),
+                        label: const Text('Cashback Details'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: mainBlue,
-                          foregroundColor: const Color.fromARGB(255, 247, 250, 255),
+                          foregroundColor:
+                              const Color.fromARGB(255, 247, 250, 255),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),

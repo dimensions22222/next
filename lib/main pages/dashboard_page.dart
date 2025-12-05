@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:next/Features/transactions/transact_history_page.dart';
 import 'package:next/Features/transactions/transaction_history_page.dart';
-import 'package:next/TV%20sub%20flow/tvsub_page.dart';
+import 'package:next/Features/TV%20sub%20flow/tvsub_page.dart';
 import 'package:next/Features/airtimeflow/Airtime_page.dart';
 import 'package:next/Features/bottomNAVpages/profile_me.dart';
 import 'package:next/Features/bottomNAVpages/reward_page.dart';
@@ -497,10 +496,9 @@ class _DashboardPageState extends State<DashboardPage> {
                           Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) =>
-                          //  const TransactHistoryPage()),
                            const TransactionHistoryPage()),
                           );},
-                            child:  Row(
+                            child:  const Row(
                               children: [
                                 Text(
                                   "Transact history",
