@@ -483,9 +483,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                     child: Column(
                       children: [
                         buildDropdowns(),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 13),
                         buildTopSummary(),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 13),
                         Expanded(
                           child: filtered.isEmpty
                               ? EmptyStateView(
